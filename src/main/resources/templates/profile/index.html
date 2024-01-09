@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<!-- ======= Head ======= -->
+<div th:replace="~{common/shoulder_fragment::head(title = 'SNSサイト - プロフィール')}"></div>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <div th:replace="~{common/shoulder_fragment::header}"></div>
+
+  <!-- ======= Sidebar ======= -->
+  <div th:replace="~{common/shoulder_fragment::sidebar}"></div>
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>プロフィール</h1>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+      <div class="row">
+        <div class="col-xl-8">
+          <div class="row">
+
+            <!-- Card with an image on top -->
+            <div class="card">
+              <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">リラックスしてカフェタイムを楽しむ！テラスでのカフェ体験</h5>
+                <p class="card-text">こんにちは、皆さん！今日は素晴らしいテラスでのカフェ体験についてお話ししたいと思います。最近、私は忙しい日常生活から離れるために、テラスでカフェを楽しむことを好んでいます。そこで、今回は私のおすすめのテラスカフェを紹介しつつ、リラックスしてカフェタイムを過ごす方法をご紹介します。
+                  <br>
+                  <br>
+                  私が行ったカフェは、美しい景色が見渡せるテラス席が魅力のカフェでした。テラスでコーヒーや紅茶を飲みながら、日差しを浴びていると、とてもリラックスできます。また、周りの自然の風景を見ながら、ストレスが吹き飛ぶような気分になります。
+                  <br>
+                  <br>
+                  さらに、カフェのメニューも豊富で、美味しい軽食やスイーツもたくさんありました。私は、季節限定のフルーツタルトを注文しました。フルーツの甘みがたっぷりで、サクサクのタルト生地との相性が抜群でした。食べるたびに、幸せな気分になりました。
+                  <br>
+                  <br>
+                  テラスカフェで過ごす時間は、私にとって特別な時間です。自然の中で、おいしい食べ物や飲み物を楽しみながら、リラックスできる場所は貴重です。皆さんも、テラスカフェでのカフェタイムを試してみてはいかがでしょうか？
+                </p>
+              </div>
+
+              <div class="card-body">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <div>
+                    <i class="bi bi-exclamation-octagon me-1"></i>
+                    <span>エラーメッセージを表示します。</span>
+                  </div>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <form class="row g-3">
+                  <div class="col-md-12">
+                    <input type="text" class="form-control" placeholder="コメントを入力...">
+                  </div>
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-primary">コメントする</button>
+                  </div>
+                </form>
+              </div>
+
+              <div class="card-body">
+                <div class="news">
+                  <div class="post-item clearfix">
+                    <img src="/assets/img/news-1.jpg" alt="">
+                    <h4><a href="/profile/">前田裕司</a></h4>
+                    <p>ハヤシライス、ピリ辛味噌バターコーンのスープパスタを食べてきました。...</p>
+                  </div>
+
+                  <div class="post-item clearfix">
+                    <img src="/assets/img/news-2.jpg" alt="">
+                    <h4><a href="/profile/">深沢雅彦</a></h4>
+                    <p>ハイビスカス香るまろやかなホットカクテルで、冬の寒さをくつろぎながら乗り切りましょう！...</p>
+                  </div>
+
+                  <div class="post-item clearfix">
+                    <img src="/assets/img/news-3.jpg" alt="">
+                    <h4><a href="/profile/">哀川涼</a></h4>
+                    <p>新しい季節を迎え、新しい門出を迎えるお客様へポール・スチュアートの特別なメニューをご用意しました。...</p>
+                  </div>
+
+                  <div class="post-item clearfix">
+                    <img src="/assets/img/news-4.jpg" alt="">
+                    <h4><a href="/profile/">奥山恵子</a></h4>
+                    <p>トライアスロンの練習は疲労をもたらします。でも習慣にしている練習をやめてしまうと、もっと体が疲労するというのです。...</p>
+                  </div>
+
+                  <div class="post-item clearfix">
+                    <img src="/assets/img/news-5.jpg" alt="">
+                    <h4><a href="/profile/">矢部将也</a></h4>
+                    <p>東京は、日中は日差しが出て少し気温が上がったように感じます...</p>
+                  </div>
+
+                </div><!-- End sidebar recent posts-->
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Default Card</h5>
+                <p class="card-text">先日、友人たちと初めてスノボーに行ってきました！初めての経験でしたが、とても楽しい思い出を作ることができました。
+                  <br>
+                  <br>
+                  まず、スキー場に着いた時は、山の景色に感動しました。青空と雪がとても綺麗で、息をのむほどでした。スノボーの初心者だった私は、先輩たちに丁寧にレクチャーしてもらい、スタート地点に立ちました。最初はバランスを取るのも難しかったですが、コツをつかむとスピードを出すこともできました。
+                  <br>
+                  <br>
+                  そして、ゲレンデを滑っていると、空気がとても清々しく、ストレスが吹き飛ぶようでした。周りの景色も素晴らしく、滑りながら眺める山々や木々が、心を癒してくれました。
+                  <br>
+                  <br>
+                  友人たちと一緒に滑りながら、お互いの技術を見せ合い、笑い声が絶えない1日でした。休憩時には、温かいドリンクやお菓子を楽しんだり、写真を撮ったりして、さらに楽しい時間を過ごすことができました。
+                  <br>
+                  <br>
+                  初めてのスノボーでしたが、この経験を通して新しい趣味を見つけることができました。また、自然の中で過ごすことで心身ともにリフレッシュできたので、気分もスッキリしました。次は、もっと上手に滑りたいと思いました。スノボーの楽しさに魅了され、また行きたいと思っています。
+                </p>
+              </div>
+
+              <div class="card-body">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <div>
+                    <i class="bi bi-exclamation-octagon me-1"></i>
+                    <span>エラーメッセージを表示します。</span>
+                  </div>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <form class="row g-3">
+                  <div class="col-md-12">
+                    <input type="text" class="form-control" placeholder="コメントを入力...">
+                  </div>
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-primary">コメントする</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-xl-4">
+          <div class="card">
+            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+
+              <img src="/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+              <h2>佐藤太郎</h2>
+              <div class="social-links mt-2">
+                <form action="users-profile.jsp" method="post">
+                  <button type="button" class="btn btn-primary rounded-pill">友達申請</button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body pt-3">
+              <!-- Bordered Tabs -->
+              <ul class="nav nav-tabs nav-tabs-bordered">
+
+                <li class="nav-item">
+                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">基本データ</button>
+                </li>
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">プロフィール編集</button>
+                </li>
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">パスワード変更</button>
+                </li>
+
+              </ul>
+              <div class="tab-content pt-2">
+
+                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                  <h5 class="card-title">自己紹介</h5>
+                  <p class="small fst-italic">
+                    はじめまして、佐藤太郎と申します。私は、大手銀行の投資部門で働いています。投資に対する深い知識と経験を持ち、
+                    顧客に最適な投資プランを提供することができます。
+                    <br>
+                    <br>
+                    また、ビジネスに対する専門知識も持っており、クライアントのビジネス成長をサポートすることもできます。
+                    趣味は旅行とゴルフです。世界中を旅して、新しい文化や人々と出会うことが私の楽しみです。
+                    <br>
+                    <br>
+                    また、週末はゴルフ場で友人とプレーすることもあります。私の信念は、自己研鑽とお客様の満足度の向上に努めることです。
+                    どうぞよろしくお願いいたします。
+                  </p>
+
+                  <h5 class="card-title">プロフィール</h5>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">名前</div>
+                    <div class="col-lg-9 col-md-8">佐藤太郎</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">メールアドレス</div>
+                    <div class="col-lg-9 col-md-8">tsato@dcworks.jp</div>
+                  </div>
+
+                </div>
+
+                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <div>
+                      <i class="bi bi-exclamation-octagon me-1"></i>
+                      <span>エラーメッセージを表示します。</span>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+
+                  <!-- Profile Edit Form -->
+                  <form>
+                    <div class="row mb-3">
+                      <label for="profileImage" class="col-md-4 col-lg-4 col-form-label">プロフィール画像</label>
+                      <div class="col-md-8 col-lg-8">
+                        <img src="/assets/img/profile-img.jpg" alt="Profile">
+                        <div class="pt-2">
+                          <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
+                          <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="fullName" class="col-md-4 col-lg-4 col-form-label">名前</label>
+                      <div class="col-md-8 col-lg-8">
+                        <input name="fullName" type="text" class="form-control" id="fullName" value="佐藤太郎">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="about" class="col-md-4 col-lg-4 col-form-label">自己紹介</label>
+                      <div class="col-md-8 col-lg-8">
+                        <textarea name="about" class="form-control" id="about" style="height: 100px">はじめまして、佐藤太郎と申します。私は、大手銀行の投資部門で働いています。投資に対する深い知識と経験を持ち、
+顧客に最適な投資プランを提供することができます。
+
+また、ビジネスに対する専門知識も持っており、クライアントのビジネス成長をサポートすることもできます。
+趣味は旅行とゴルフです。世界中を旅して、新しい文化や人々と出会うことが私の楽しみです。
+
+また、週末はゴルフ場で友人とプレーすることもあります。私の信念は、自己研鑽とお客様の満足度の向上に努めることです。
+どうぞよろしくお願いいたします。</textarea>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="Email" class="col-md-4 col-lg-4 col-form-label">メールアドレス</label>
+                      <div class="col-md-8 col-lg-8">
+                        <input name="email" type="email" class="form-control" id="Email" value="tsato@dcworks.jp">
+                      </div>
+                    </div>
+
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">プロフィールを保存</button>
+                    </div>
+                  </form><!-- End Profile Edit Form -->
+
+                </div>
+
+                <div class="tab-pane fade pt-3" id="profile-change-password">
+                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <div>
+                      <i class="bi bi-exclamation-octagon me-1"></i>
+                      <span>エラーメッセージを表示します。</span>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+
+                  <!-- Change Password Form -->
+                  <form>
+                    <div class="row mb-3">
+                      <label for="currentPassword" class="col-md-4 col-lg-4 col-form-label">現在のパスワード</label>
+                      <div class="col-md-8 col-lg-8">
+                        <input name="password" type="password" class="form-control" id="currentPassword">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="newPassword" class="col-md-4 col-lg-4 col-form-label">新しいパスワード</label>
+                      <div class="col-md-8 col-lg-8">
+                        <input name="newpassword" type="password" class="form-control" id="newPassword">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="renewPassword" class="col-md-4 col-lg-4 col-form-label">新しいパスワードを再入力</label>
+                      <div class="col-md-8 col-lg-8">
+                        <input name="renewpassword" type="password" class="form-control" id="renewPassword">
+                      </div>
+                    </div>
+
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">パスワードを変更</button>
+                    </div>
+                  </form><!-- End Change Password Form -->
+
+                </div>
+
+              </div><!-- End Bordered Tabs -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <div th:replace="~{common/shoulder_fragment::footer}"></div>
+
+</body>
+
+</html>
