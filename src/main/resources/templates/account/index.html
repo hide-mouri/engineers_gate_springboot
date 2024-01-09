@@ -39,16 +39,16 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                   </div>
 
-                  <form class="row g-3 needs-validation" th:action="@{/account/complete}" novalidate>
+                  <form class="row g-3 needs-validation" method="post" novalidate th:action="@{/account/regist}" th:object="${requestAccount}">
                     <div class="col-12">
                       <label for="yourName" class="form-label">お名前</label>
-                      <input type="text" name="name" class="form-control" id="yourName" required>
+                      <input type="text" name="name" class="form-control" id="yourName" required th:field="*{name}">
                       <div class="invalid-feedback">お名前を入力してください。</div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourEmail" class="form-label">メールアドレス</label>
-                      <input type="email" name="email" class="form-control" id="yourEmail" required>
+                      <input type="email" name="emailAddress" class="form-control" id="yourEmail" required th:field="*{emailAddress}">
                       <div class="invalid-feedback">有効なメールアドレスを入力してください。</div>
                     </div>
 
@@ -56,14 +56,14 @@
                       <label for="yourUsername" class="form-label">ログインID</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
+                        <input type="text" name="loginId" class="form-control" id="yourUsername" required th:field="*{loginId}">
                         <div class="invalid-feedback">ログインIDを入力してください。</div>
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">パスワード</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
+                      <input type="password" name="password" class="form-control" id="yourPassword" required th:field="*{password}">
                       <div class="invalid-feedback">パスワードを入力してください。</div>
                     </div>
 
