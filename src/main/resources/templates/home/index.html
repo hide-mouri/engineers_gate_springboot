@@ -23,115 +23,89 @@
 
         <!-- Left side columns -->
         <div class="col-lg-8">
-          <div class="row">
 
-            <!-- Card with an image on top -->
-            <div class="card">
-              <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">リラックスしてカフェタイムを楽しむ！テラスでのカフェ体験</h5>
-                <p class="card-text">こんにちは、皆さん！今日は素晴らしいテラスでのカフェ体験についてお話ししたいと思います。最近、私は忙しい日常生活から離れるために、テラスでカフェを楽しむことを好んでいます。そこで、今回は私のおすすめのテラスカフェを紹介しつつ、リラックスしてカフェタイムを過ごす方法をご紹介します。
-                  <br>
-                  <br>
-                  私が行ったカフェは、美しい景色が見渡せるテラス席が魅力のカフェでした。テラスでコーヒーや紅茶を飲みながら、日差しを浴びていると、とてもリラックスできます。また、周りの自然の風景を見ながら、ストレスが吹き飛ぶような気分になります。
-                  <br>
-                  <br>
-                  さらに、カフェのメニューも豊富で、美味しい軽食やスイーツもたくさんありました。私は、季節限定のフルーツタルトを注文しました。フルーツの甘みがたっぷりで、サクサクのタルト生地との相性が抜群でした。食べるたびに、幸せな気分になりました。
-                  <br>
-                  <br>
-                  テラスカフェで過ごす時間は、私にとって特別な時間です。自然の中で、おいしい食べ物や飲み物を楽しみながら、リラックスできる場所は貴重です。皆さんも、テラスカフェでのカフェタイムを試してみてはいかがでしょうか？
-                </p>
-              </div>
-
-              <div class="card-body">
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                  <div>
-                    <i class="bi bi-exclamation-octagon me-1"></i>
-                    <span>エラーメッセージを表示します。</span>
-                  </div>
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                <form class="row g-3">
-                  <div class="col-md-12">
-                    <input type="text" class="form-control" placeholder="コメントを入力...">
-                  </div>
-                  <div class="text-center">
-                    <button type="submit" class="btn btn-primary">コメントする</button>
-                  </div>
-                </form>
-              </div>
-
-              <div class="card-body">
-                <div class="news">
-                  <div class="post-item clearfix">
-                    <img src="/assets/img/news-1.jpg" alt="">
-                    <h4><a href="users-profile.jsp">前田裕司</a></h4>
-                    <p>ハヤシライス、ピリ辛味噌バターコーンのスープパスタを食べてきました。...</p>
-                  </div>
-
-                  <div class="post-item clearfix">
-                    <img src="/assets/img/news-2.jpg" alt="">
-                    <h4><a href="users-profile.jsp">深沢雅彦</a></h4>
-                    <p>ハイビスカス香るまろやかなホットカクテルで、冬の寒さをくつろぎながら乗り切りましょう！...</p>
-                  </div>
-
-                  <div class="post-item clearfix">
-                    <img src="/assets/img/news-3.jpg" alt="">
-                    <h4><a href="users-profile.jsp">哀川涼</a></h4>
-                    <p>新しい季節を迎え、新しい門出を迎えるお客様へポール・スチュアートの特別なメニューをご用意しました。...</p>
-                  </div>
-
-                  <div class="post-item clearfix">
-                    <img src="/assets/img/news-4.jpg" alt="">
-                    <h4><a href="users-profile.jsp">奥山恵子</a></h4>
-                    <p>トライアスロンの練習は疲労をもたらします。でも習慣にしている練習をやめてしまうと、もっと体が疲労するというのです。...</p>
-                  </div>
-
-                  <div class="post-item clearfix">
-                    <img src="/assets/img/news-5.jpg" alt="">
-                    <h4><a href="users-profile.jsp">矢部将也</a></h4>
-                    <p>東京は、日中は日差しが出て少し気温が上がったように感じます...</p>
-                  </div>
-
-                </div><!-- End sidebar recent posts-->
+          <div class="row" th:if="${#lists.isEmpty(postsList)}">
+            <div class="col-lg-12">
+              <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  投稿はありません。
               </div>
             </div>
+          </div>
 
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">初めてのスノボーで楽しい思い出を作った！</h5>
-                <p class="card-text">先日、友人たちと初めてスノボーに行ってきました！初めての経験でしたが、とても楽しい思い出を作ることができました。
-                  <br>
-                  <br>
-                  まず、スキー場に着いた時は、山の景色に感動しました。青空と雪がとても綺麗で、息をのむほどでした。スノボーの初心者だった私は、先輩たちに丁寧にレクチャーしてもらい、スタート地点に立ちました。最初はバランスを取るのも難しかったですが、コツをつかむとスピードを出すこともできました。
-                  <br>
-                  <br>
-                  そして、ゲレンデを滑っていると、空気がとても清々しく、ストレスが吹き飛ぶようでした。周りの景色も素晴らしく、滑りながら眺める山々や木々が、心を癒してくれました。
-                  <br>
-                  <br>
-                  友人たちと一緒に滑りながら、お互いの技術を見せ合い、笑い声が絶えない1日でした。休憩時には、温かいドリンクやお菓子を楽しんだり、写真を撮ったりして、さらに楽しい時間を過ごすことができました。
-                  <br>
-                  <br>
-                  初めてのスノボーでしたが、この経験を通して新しい趣味を見つけることができました。また、自然の中で過ごすことで心身ともにリフレッシュできたので、気分もスッキリしました。次は、もっと上手に滑りたいと思いました。スノボーの楽しさに魅了され、また行きたいと思っています。
-                </p>
-              </div>
-
-              <div class="card-body">
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                  <div>
-                    <i class="bi bi-exclamation-octagon me-1"></i>
-                    <span>エラーメッセージを表示します。</span>
-                  </div>
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          <div class="row" th:if="${not #lists.isEmpty(postsList)}">
+            <div class="col-lg-12">
+              <!-- Card with an image on top -->
+              <div class="card" th:each="posts:${postsList}">
+                <div th:each="postImages:${posts.postImagesList}">
+                  <img th:src="*{postImages.imageUri} + '?' + ${#dates.format(#dates.createNow(), 'yyyyMMddHHmmss')}" src="/assets/img/card.jpg" class="card-img-top" alt="..." />
                 </div>
-                <form class="row g-3">
-                  <div class="col-md-12">
-                    <input type="text" class="form-control" placeholder="コメントを入力...">
+                <div class="card-body">
+                  <h5 class="card-title" th:text="${posts.title}">リラックスしてカフェタイムを楽しむ！テラスでのカフェ体験</h5>
+                  <p class="card-text" th:utext="${@stringUtil.nl2br(posts.body)}">こんにちは、皆さん！今日は素晴らしいテラスでのカフェ体験についてお話ししたいと思います。最近、私は忙しい日常生活から離れるために、テラスでカフェを楽しむことを好んでいます。そこで、今回は私のおすすめのテラスカフェを紹介しつつ、リラックスしてカフェタイムを過ごす方法をご紹介します。
+                    <br>
+                    <br>
+                    私が行ったカフェは、美しい景色が見渡せるテラス席が魅力のカフェでした。テラスでコーヒーや紅茶を飲みながら、日差しを浴びていると、とてもリラックスできます。また、周りの自然の風景を見ながら、ストレスが吹き飛ぶような気分になります。
+                    <br>
+                    <br>
+                    さらに、カフェのメニューも豊富で、美味しい軽食やスイーツもたくさんありました。私は、季節限定のフルーツタルトを注文しました。フルーツの甘みがたっぷりで、サクサクのタルト生地との相性が抜群でした。食べるたびに、幸せな気分になりました。
+                    <br>
+                    <br>
+                    テラスカフェで過ごす時間は、私にとって特別な時間です。自然の中で、おいしい食べ物や飲み物を楽しみながら、リラックスできる場所は貴重です。皆さんも、テラスカフェでのカフェタイムを試してみてはいかがでしょうか？
+                  </p>
+                </div>
+
+                <div class="card-body">
+                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <div>
+                      <i class="bi bi-exclamation-octagon me-1"></i>
+                      <span>エラーメッセージを表示します。</span>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                   </div>
-                  <div class="text-center">
-                    <button type="submit" class="btn btn-primary">コメントする</button>
-                  </div>
-                </form>
+                  <form class="row g-3">
+                    <div class="col-md-12">
+                      <input type="text" class="form-control" placeholder="コメントを入力...">
+                    </div>
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">コメントする</button>
+                    </div>
+                  </form>
+                </div>
+
+                <div class="card-body">
+                  <div class="news">
+                    <div class="post-item clearfix">
+                      <img src="/assets/img/news-1.jpg" alt="">
+                      <h4><a href="users-profile.jsp">前田裕司</a></h4>
+                      <p>ハヤシライス、ピリ辛味噌バターコーンのスープパスタを食べてきました。...</p>
+                    </div>
+
+                    <div class="post-item clearfix">
+                      <img src="/assets/img/news-2.jpg" alt="">
+                      <h4><a href="users-profile.jsp">深沢雅彦</a></h4>
+                      <p>ハイビスカス香るまろやかなホットカクテルで、冬の寒さをくつろぎながら乗り切りましょう！...</p>
+                    </div>
+
+                    <div class="post-item clearfix">
+                      <img src="/assets/img/news-3.jpg" alt="">
+                      <h4><a href="users-profile.jsp">哀川涼</a></h4>
+                      <p>新しい季節を迎え、新しい門出を迎えるお客様へポール・スチュアートの特別なメニューをご用意しました。...</p>
+                    </div>
+
+                    <div class="post-item clearfix">
+                      <img src="/assets/img/news-4.jpg" alt="">
+                      <h4><a href="users-profile.jsp">奥山恵子</a></h4>
+                      <p>トライアスロンの練習は疲労をもたらします。でも習慣にしている練習をやめてしまうと、もっと体が疲労するというのです。...</p>
+                    </div>
+
+                    <div class="post-item clearfix">
+                      <img src="/assets/img/news-5.jpg" alt="">
+                      <h4><a href="users-profile.jsp">矢部将也</a></h4>
+                      <p>東京は、日中は日差しが出て少し気温が上がったように感じます...</p>
+                    </div>
+
+                  </div><!-- End sidebar recent posts-->
+                </div>
               </div>
             </div>
 
@@ -154,20 +128,20 @@
               </div>
 
               <!-- Vertical Form -->
-              <form class="row g-3">
+              <form class="row g-3" method="post" enctype="multipart/form-data" th:action="@{/home/post_current_feelings}" th:object="${requestPostCurrentFeelings}">
                 <div class="col-12">
                   <label for="inputNanme4" class="form-label">タイトル</label>
-                  <input type="text" class="form-control" id="inputNanme4">
+                  <input type="text" class="form-control" id="inputNanme4" th:field="*{title}">
                 </div>
 
                 <div class="col-12">
                   <label for="inputNanme4" class="form-label">本文</label>
-                  <textarea class="form-control" style="height: 100px"></textarea>
+                  <textarea class="form-control" style="height: 100px" th:field="*{body}"></textarea>
                 </div>
 
                 <div class="col-12">
                   <label for="inputNanme4" class="form-label">写真</label>
-                  <input class="form-control" type="file" id="formFile">
+                  <input class="form-control" type="file" id="formFile" name="postImagesFile">
                 </div>
 
                 <div class="text-center">
