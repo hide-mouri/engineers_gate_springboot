@@ -21,6 +21,30 @@ public class UsersService {
 
 	/**
 	 * ユーザー検索を行う。
+	 * ユーザーIDを指定し、ユーザーを検索する。
+	 *
+	 * @param usersId ユーザーID
+	 * @return ユーザー情報を返す。
+	 */
+	public Users findById(String usersId) {
+		log.info("ユーザーを検索します。：usersId={}", usersId);
+
+		Long tmpUsersId = null;
+		try {
+			tmpUsersId = Long.parseLong(usersId);
+		} catch (NumberFormatException e) {
+			log.warn("ユーザー検索時に不正な値が指定されました。：usersId={}", usersId);
+			return null;
+		}
+
+		Users users = repository.findById(tmpUsersId).orElse(null);
+		log.info("ユーザー検索結果。：usersId={}, users={}", usersId, users);
+
+		return users;
+	}
+
+	/**
+	 * ユーザー検索を行う。
 	 * ログインIDを指定し、ユーザーを検索する。
 	 *
 	 * @param loginId ログインID

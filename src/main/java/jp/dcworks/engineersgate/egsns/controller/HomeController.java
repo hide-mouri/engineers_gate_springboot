@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.dcworks.engineersgate.egsns.core.annotation.LoginCheck;
-import jp.dcworks.engineersgate.egsns.dto.RequestPostCurrentFeelings;
+import jp.dcworks.engineersgate.egsns.dto.RequestShare;
 import jp.dcworks.engineersgate.egsns.entity.Posts;
 import jp.dcworks.engineersgate.egsns.service.PostsService;
 import jp.dcworks.engineersgate.egsns.service.StorageService;
@@ -49,8 +49,8 @@ public class HomeController extends AppController {
 	public String index(Model model) {
 		log.info("ホーム画面のアクションが呼ばれました。");
 
-		if (!model.containsAttribute("requestPostCurrentFeelings")) {
-			model.addAttribute("requestPostCurrentFeelings", new RequestPostCurrentFeelings());
+		if (!model.containsAttribute("requestShare")) {
+			model.addAttribute("requestShare", new RequestShare());
 		}
 
 		// 投稿一覧取得。
@@ -63,24 +63,24 @@ public class HomeController extends AppController {
 	/**
 	 * [POST]自身のコメント投稿アクション。
 	 *
-	 * @param requestPostCurrentFeelings 入力フォームの内容
+	 * @param requestShare 入力フォームの内容
 	 * @param result バリデーション結果
 	 * @param redirectAttributes リダイレクト時に使用するオブジェクト
 	 */
-	@PostMapping("/post_current_feelings")
-	public String postCurrentFeelings(@Validated @ModelAttribute RequestPostCurrentFeelings requestPostCurrentFeelings,
+	@PostMapping("/share")
+	public String share(@Validated @ModelAttribute RequestShare requestShare,
 			@RequestParam("postImagesFile") MultipartFile postImagesFile,
 			BindingResult result,
 			RedirectAttributes redirectAttributes) {
 
-		log.info("コメント投稿処理のアクションが呼ばれました。：requestTopicComment={}", requestPostCurrentFeelings);
+		log.info("コメント投稿処理のアクションが呼ばれました。：requestShare={}", requestShare);
 
 		// バリデーション。
 		if (result.hasErrors()) {
-			log.warn("バリデーションエラーが発生しました。：requestTopicComment={}, result={}", requestPostCurrentFeelings, result);
+			log.warn("バリデーションエラーが発生しました。：requestShare={}, result={}", requestShare, result);
 
 			redirectAttributes.addFlashAttribute("validationErrors", result);
-			redirectAttributes.addFlashAttribute("requestPostCurrentFeelings", requestPostCurrentFeelings);
+			redirectAttributes.addFlashAttribute("requestShare", requestShare);
 
 			// 入力画面へリダイレクト。
 			return "redirect:/home";
@@ -88,13 +88,13 @@ public class HomeController extends AppController {
 
 		// ファイルチェックを行う。
 		if (!StorageService.isImageFile(postImagesFile)) {
-			log.warn("指定されたファイルは、画像ファイルではありません。：requestTopicComment={}", requestPostCurrentFeelings);
+			log.warn("指定されたファイルは、画像ファイルではありません。：requestShare={}", requestShare);
 
 			// エラーメッセージをセット。
 			result.rejectValue("profileFileHidden", StringUtil.BLANK, "画像ファイルを指定してください。");
 
 			redirectAttributes.addFlashAttribute("validationErrors", result);
-			redirectAttributes.addFlashAttribute("requestPostCurrentFeelings", requestPostCurrentFeelings);
+			redirectAttributes.addFlashAttribute("requestShare", requestShare);
 
 			// 入力画面へリダイレクト。
 			return "redirect:/profile";
@@ -107,12 +107,13 @@ public class HomeController extends AppController {
 		String postImagesFileUri = storageService.store(postImagesFile);
 
 		try {
+			// TODO 暫定：キャッシュの影響か、画像が完全にアップされる前に描画され、画像のリンク切れが発生している為、スリープして上がり切るまで待つ処理。
 			Thread.sleep(3000);
 		} catch (Exception e) {
 		}
 
 		// コメント登録処理。
-		postsService.save(requestPostCurrentFeelings, usersId, postImagesFileUri);
+		postsService.save(requestShare, usersId, postImagesFileUri);
 
 		return "redirect:/home";
 	}

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jp.dcworks.engineersgate.egsns.dto.RequestPostCurrentFeelings;
+import jp.dcworks.engineersgate.egsns.dto.RequestShare;
 import jp.dcworks.engineersgate.egsns.entity.PostImages;
 import jp.dcworks.engineersgate.egsns.entity.Posts;
 import jp.dcworks.engineersgate.egsns.repository.PostsImagesRepository;
@@ -30,15 +30,18 @@ public class PostsService {
 	/**
 	 * 投稿処理を行う。
 	 *
-	 * @param requestPostCurrentFeelings コメント投稿DTO
+	 * @param requestShare コメント投稿DTO
 	 * @param usersId ユーザーID
 	 * @param postImagesFileUri 投稿画像URI
 	 */
-	public void save(RequestPostCurrentFeelings requestPostCurrentFeelings, Long usersId, String postImagesFileUri) {
+	public void save(RequestShare requestShare, Long usersId, String postImagesFileUri) {
+		log.info("投稿処理を行います。：requestShare={}, usersId={}, postImagesFileUri={}", requestShare, usersId,
+				postImagesFileUri);
+
 		Posts posts = new Posts();
 		posts.setUsersId(usersId);
-		posts.setTitle(requestPostCurrentFeelings.getTitle());
-		posts.setBody(requestPostCurrentFeelings.getBody());
+		posts.setTitle(requestShare.getTitle());
+		posts.setBody(requestShare.getBody());
 
 		// 投稿データの登録及び、取得。
 		Posts regPosts = repository.save(posts);

@@ -128,7 +128,7 @@
               </div>
 
               <!-- Vertical Form -->
-              <form class="row g-3" method="post" enctype="multipart/form-data" th:action="@{/home/post_current_feelings}" th:object="${requestPostCurrentFeelings}">
+              <form class="row g-3" method="post" enctype="multipart/form-data" th:action="@{/home/share}" th:object="${requestShare}">
                 <div class="col-12">
                   <label for="inputNanme4" class="form-label">タイトル</label>
                   <input type="text" class="form-control" id="inputNanme4" th:field="*{title}">

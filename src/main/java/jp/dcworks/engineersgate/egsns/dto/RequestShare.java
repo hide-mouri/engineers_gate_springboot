@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class RequestPostCurrentFeelings extends DtoBase {
+public class RequestShare extends DtoBase {
 
 	/** タイトル */
 	@NotBlank(message = "タイトルを入力してください。")
