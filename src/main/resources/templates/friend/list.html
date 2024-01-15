@@ -18,7 +18,7 @@
       <h1>フレンド</h1>
     </div><!-- End Page Title -->
 
-    <section class="section friend">
+    <section class="section dashboard">
       <div class="row">
 
         <div class="col-lg-12">
@@ -39,45 +39,26 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row"><img src="/assets/img/news-1.jpg" alt="" style="width: 80px;"></th>
-                    <td><a href="/profile/">前田裕司</a></td>
-                    <td>
+                  <tr th:each="friends:${friendsList}">
+                    <th scope="row"><img th:src="(*{friends.friendUsers.iconUri} ?: '/assets/img/profile-dummy.png') + '?' + ${#dates.format(#dates.createNow(), 'yyyyMMddHHmmss')}" alt="" style="width: 80px;" /></th>
+                    <td><a th:href="@{/profile/{id}(id=${friends.friendUsers.id})}" th:text="${friends.friendUsers.name}">前田裕司</a></td>
+                    <td th:text="${friends.friendUsers.profile}">
                       こんにちは、前田裕司と申します。IT企業でマーケティング部門に勤務しています。<br>クリエイティブな発想力を活かして、常に新しいアイデアを提案しています。<br>趣味は音楽鑑賞と野球観戦です。
                     </td>
-        	        <td><button type="button" class="btn btn-primary rounded-pill">未承認</button>&nbsp;<button type="button" class="btn btn-danger rounded-pill">却下</button></td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><img src="/assets/img/news-2.jpg" alt="" style="width: 80px;"></th>
-                    <td><a href="/profile/">深沢雅彦</a></td>
-                    <td>
-                      はじめまして、深沢雅彦です。弁護士事務所で働いています。正義感が強く、<br>法律に対する深い知識と豊富な経験を持っています。<br>的確な判断力を発揮し、クライアントのために尽力しています。趣味は読書とゴルフです。
+                    <td th:switch="${friends.approvalStatus}">
+                      <div th:case="${T(jp.dcworks.engineersgate.egsns.core.AppConst).FRIENDS_APPROVAL_STATUS_IN_PROGRESS}">
+                        <button class="btn btn-outline-primary" disabled>申請中</button>&nbsp;
+                        <a th:href="@{/friend/request/cancel/{id}(id=${friends.friendUsers.id})}" class="btn btn-danger">キャンセル</a>&nbsp;
+                      </div>
+                      <div th:case="${T(jp.dcworks.engineersgate.egsns.core.AppConst).FRIENDS_APPROVAL_STATUS_REVIEW}">
+                        <a th:href="@{/friend/request/approve/{id}(id=${friends.friendUsers.id})}" class="btn btn-primary">承認</a>&nbsp;
+                        <a th:href="@{/friend/request/cancel/{id}(id=${friends.friendUsers.id})}" class="btn btn-danger">却下</a>&nbsp;
+                      </div>
+                      <div th:case="*">
+                        <button class="btn btn-outline-success" disabled>友達</button>&nbsp;
+                        <a th:href="@{/friend/request/cancel/{id}(id=${friends.friendUsers.id})}" class="btn btn-danger">解除</a>&nbsp;
+                      </div>
                     </td>
-                    <td><button type="button" class="btn btn-secondary rounded-pill" disabled="disabled">承認済み</button></td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><img src="/assets/img/news-3.jpg" alt="" style="width: 80px;"></th>
-                    <td><a href="/profile/">哀川涼</a></td>
-                    <td>
-                      こんにちは、哀川涼と言います。俳優をしています。<br>幅広い役柄をこなすことができる演技力を持っています。<br>人柄も良く、周囲からの信頼も厚いです。趣味はトレーニングと音楽鑑賞です。
-                    </td>
-                    <td><button type="button" class="btn btn-primary rounded-pill">未承認</button>&nbsp;<button type="button" class="btn btn-danger rounded-pill">却下</button></td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><img src="/assets/img/news-4.jpg" alt="" style="width: 80px;"></th>
-                    <td><a href="/profile/">奥山恵子</a></td>
-                    <td>
-                      はじめまして、奥山恵子と申します。フリーランスのイラストレーターです。センスが良く、<br>独自のスタイルを持ったイラストを制作しています。<br>クライアントからの要望に応えるため、柔軟な発想力を発揮しています。<br>趣味は絵を描くことと読書です。
-                    </td>
-                    <td><button type="button" class="btn btn-secondary rounded-pill" disabled="disabled">承認済み</button></td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><img src="/assets/img/news-5.jpg" alt="" style="width: 80px;"></th>
-                    <td><a href="/profile/">矢部将也</a></td>
-                    <td>
-                      こんにちは、矢部将也と言います。飲食店の店長をしています。<br>お客様に対して丁寧な接客を心掛け、料理の腕も良いと評判をいただいています。<br>趣味は旅行と料理研究です。お店にもぜひお越しください！
-                    </td>
-                    <td><button type="button" class="btn btn-primary rounded-pill">未承認</button>&nbsp;<button type="button" class="btn btn-danger rounded-pill">却下</button></td>
                   </tr>
                 </tbody>
               </table>
