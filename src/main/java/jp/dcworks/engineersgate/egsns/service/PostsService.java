@@ -64,4 +64,14 @@ public class PostsService {
 	public List<Posts> findAllPosts() {
 		return (List<Posts>) repository.findByOrderByIdDesc();
 	}
+
+	/**
+	 * 投稿一覧を取得する。
+	 * 投稿IDの降順。
+	 * @param usersId ユーザーID
+	 * @return 投稿一覧を返す。
+	 */
+	public List<Posts> findByUsersId(Long usersId) {
+		return (List<Posts>) repository.findByUsersIdOrderByIdDesc(usersId);
+	}
 }

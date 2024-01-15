@@ -18,4 +18,12 @@ public interface PostsRepository extends PagingAndSortingRepository<Posts, Long>
 	 * @return 投稿一覧を返す。
 	 */
 	List<Posts> findByOrderByIdDesc();
+
+	/**
+	 * 投稿一覧を取得する。
+	 * 投稿IDの降順。
+	 * @param usersId ユーザーID
+	 * @return 投稿一覧を返す。
+	 */
+	List<Posts> findByUsersIdOrderByIdDesc(Long usersId);
 }

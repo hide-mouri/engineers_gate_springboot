@@ -1,5 +1,7 @@
 package jp.dcworks.engineersgate.egsns.controller;
 
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,8 +20,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jp.dcworks.engineersgate.egsns.core.annotation.LoginCheck;
 import jp.dcworks.engineersgate.egsns.dto.RequestModifyAccount;
 import jp.dcworks.engineersgate.egsns.entity.Friends;
+import jp.dcworks.engineersgate.egsns.entity.Posts;
 import jp.dcworks.engineersgate.egsns.entity.Users;
 import jp.dcworks.engineersgate.egsns.service.FriendsService;
+import jp.dcworks.engineersgate.egsns.service.PostsService;
 import jp.dcworks.engineersgate.egsns.service.StorageService;
 import jp.dcworks.engineersgate.egsns.service.UsersService;
 import jp.dcworks.engineersgate.egsns.util.StringUtil;
@@ -46,6 +50,10 @@ public class ProfileController extends AppController {
 	@Autowired
 	private FriendsService friendsService;
 
+	/** ユーザー関連サービスクラス。 */
+	@Autowired
+	private PostsService postsService;
+
 	/**
 	 * [GET]プロフィール画面のアクション。
 	 *
@@ -70,6 +78,10 @@ public class ProfileController extends AppController {
 		// 申請情報を検索。
 		Friends friends = friendsService.findByUsersIdAndFriendUsersId(loginUsers.getId(), profileUsers.getId());
 		model.addAttribute("friends", friends);
+
+		// 投稿一覧取得。
+		List<Posts> postsList = postsService.findByUsersId(profileUsers.getId());
+		model.addAttribute("postsList", postsList);
 
 		return "profile/index";
 	}
