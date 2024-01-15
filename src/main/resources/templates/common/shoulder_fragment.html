@@ -106,26 +106,26 @@
 
 
   <!-- ======= フラグメント::Sidebar ======= -->
-  <aside th:fragment="sidebar" id="sidebar" class="sidebar">
+  <aside th:fragment="sidebar(page)" id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="/home/">
+        <a class="nav-link" href="/home/" th:classappend="${page == 'home'} ? '' : 'collapsed'">
           <i class="bi bi-house-door"></i>
           <span>Home</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/profile/">
+        <a class="nav-link" href="/profile/" th:classappend="${page == 'profile'} ? '' : 'collapsed'">
           <i class="bi bi-person"></i>
           <span>プロフィール</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/friend/list">
+        <a class="nav-link" href="/friend/list" th:classappend="${page == 'friend'} ? '' : 'collapsed'">
           <i class="bi bi-people"></i>
           <span>フレンド</span>
         </a>

@@ -10,7 +10,7 @@
   <div th:replace="~{common/shoulder_fragment::header}"></div>
 
   <!-- ======= Sidebar ======= -->
-  <div th:replace="~{common/shoulder_fragment::sidebar}"></div>
+  <div th:replace="~{common/shoulder_fragment::sidebar(page = 'profile')}"></div>
 
   <main id="main" class="main">
 
@@ -18,7 +18,7 @@
       <h1>プロフィール</h1>
     </div><!-- End Page Title -->
 
-    <section class="section dashboard">
+    <section class="section profile">
       <div class="row">
 
         <!-- Left side columns -->
@@ -126,10 +126,10 @@
               <img th:src="(*{profileUsers.iconUri} ?: '/assets/img/profile-dummy.png')" alt="Profile" class="rounded-circle" style="width: 120px;" />
               <h2 th:text="${profileUsers.name}">佐藤太郎</h2>
               <div th:if="${users.id != profileUsers.id}" th:switch="${friends?.approvalStatus}" class="social-links mt-2">
-                <button th:case="${T(jp.dcworks.app.engineers_gate_spring_boot.core.AppConst).FRIENDS_APPROVAL_STATUS_IN_PROGRESS}" class="btn btn-outline-primary rounded-pill" disabled>申請中</button>
-                <button th:case="${T(jp.dcworks.app.engineers_gate_spring_boot.core.AppConst).FRIENDS_APPROVAL_STATUS_REVIEW}" class="btn btn-outline-primary rounded-pill" disabled>承認待ち</button>
-                <button th:case="${T(jp.dcworks.app.engineers_gate_spring_boot.core.AppConst).FRIENDS_APPROVAL_STATUS_GRANTED}" class="btn btn-outline-success rounded-pill" disabled>友達</button>
-                <button th:case="${T(jp.dcworks.app.engineers_gate_spring_boot.core.AppConst).FRIENDS_APPROVAL_STATUS_CONSENT}" class="btn btn-outline-success rounded-pill" disabled>友達</button>
+                <button th:case="${T(jp.dcworks.engineersgate.egsns.core.AppConst).FRIENDS_APPROVAL_STATUS_IN_PROGRESS}" class="btn btn-outline-primary rounded-pill" disabled>申請中</button>
+                <button th:case="${T(jp.dcworks.engineersgate.egsns.core.AppConst).FRIENDS_APPROVAL_STATUS_REVIEW}" class="btn btn-outline-primary rounded-pill" disabled>承認待ち</button>
+                <button th:case="${T(jp.dcworks.engineersgate.egsns.core.AppConst).FRIENDS_APPROVAL_STATUS_GRANTED}" class="btn btn-outline-success rounded-pill" disabled>友達</button>
+                <button th:case="${T(jp.dcworks.engineersgate.egsns.core.AppConst).FRIENDS_APPROVAL_STATUS_CONSENT}" class="btn btn-outline-success rounded-pill" disabled>友達</button>
                 <a th:case="*" th:href="@{/friend/request/{id}(id=${profileUsers.id})}" class="btn btn-primary rounded-pill">友達申請</a>
               </div>
             </div>
