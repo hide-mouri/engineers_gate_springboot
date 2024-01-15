@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Base64;
 
 import javax.imageio.ImageIO;
 
@@ -122,5 +123,28 @@ public class StorageService {
 				}
 			}
 		}
+	}
+
+	/**
+	 * 画像のバイナリ情報を返す。
+	 * ※アップロードではビルドパスに画像情報を配置している為、アップロード直後にリビルドがかからず画像がデプロイされない。
+	 * 　その為リンク切れが発生していた。
+	 * 　直接ファイルを指定して、バイナリ情報を画面に送ることで解消。
+	 * 
+	 * @param imageUri 画像URI
+	 * @return 画像のバイナリ情報。
+	 */
+	public static String getDataUri(String imageUri) {
+		String base64EncodedImage = "";
+		try {
+			byte[] imageBytes = Files.readAllBytes(Paths.get("src/main/resources/static/" + imageUri));
+
+			// バイト配列をBase64エンコード
+			base64EncodedImage = Base64.getEncoder().encodeToString(imageBytes);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return "data:image/jpeg;base64," + base64EncodedImage;
 	}
 }

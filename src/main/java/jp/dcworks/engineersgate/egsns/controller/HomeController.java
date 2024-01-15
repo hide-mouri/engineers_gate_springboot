@@ -106,12 +106,6 @@ public class HomeController extends AppController {
 		// ファイルアップロード処理。
 		String postImagesFileUri = storageService.store(postImagesFile);
 
-		try {
-			// TODO 暫定：キャッシュの影響か、画像が完全にアップされる前に描画され、画像のリンク切れが発生している為、スリープして上がり切るまで待つ処理。
-			Thread.sleep(3000);
-		} catch (Exception e) {
-		}
-
 		// コメント登録処理。
 		postsService.save(requestShare, usersId, postImagesFileUri);
 

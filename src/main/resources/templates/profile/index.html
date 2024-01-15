@@ -37,7 +37,7 @@
               <!-- Card with an image on top -->
               <div class="card" th:each="posts:${postsList}">
                 <div th:each="postImages:${posts.postImagesList}">
-                  <img th:src="*{postImages.imageUri} + '?' + ${#dates.format(#dates.createNow(), 'yyyyMMddHHmmss')}" src="/assets/img/card.jpg" class="card-img-top" alt="..." />
+                  <img th:src="${@storageService.getDataUri(postImages.imageUri)}" src="/assets/img/card.jpg" class="card-img-top" alt="..." />
                 </div>
                 <div class="card-body">
                   <h5 class="card-title" th:text="${posts.title}">リラックスしてカフェタイムを楽しむ！テラスでのカフェ体験</h5>
@@ -123,7 +123,7 @@
 
           <div class="card">
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-              <img th:src="(*{profileUsers.iconUri} ?: '/assets/img/profile-dummy.png')" alt="Profile" class="rounded-circle" style="width: 120px;" />
+              <img th:src="(*{profileUsers.iconUri} ? ${@storageService.getDataUri(profileUsers.iconUri)} : '/assets/img/profile-dummy.png')" alt="Profile" class="rounded-circle" style="width: 120px;" />
               <h2 th:text="${profileUsers.name}">佐藤太郎</h2>
               <div th:if="${users.id != profileUsers.id}" th:switch="${friends?.approvalStatus}" class="social-links mt-2">
                 <button th:case="${T(jp.dcworks.engineersgate.egsns.core.AppConst).FRIENDS_APPROVAL_STATUS_IN_PROGRESS}" class="btn btn-outline-primary rounded-pill" disabled>申請中</button>
@@ -199,7 +199,7 @@
                       <div class="col-md-8 col-lg-8">
                         <span id="previewbox">
                           <!--/* タイムスタンプをURLパラメータに指定している理由は、更新直後ブラウザキャッシュにより表示されないことがある為、設定している。 */-->
-                          <img th:src="(*{iconUri} ?: '/assets/img/profile-dummy.png')" id="previewimg" style="height: 120px;" />
+                          <img th:src="(*{iconUri} ? ${@storageService.getDataUri(profileUsers.iconUri)} : '/assets/img/profile-dummy.png')" id="previewimg" style="height: 120px;" />
                         </span>
                         <div class="pt-2">
                           <label>

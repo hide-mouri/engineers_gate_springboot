@@ -150,12 +150,6 @@ public class ProfileController extends AppController {
 		users.setIconUri(fileUri);
 		usersService.save(users);
 
-		try {
-			// TODO 暫定：キャッシュの影響か、画像が完全にアップされる前に描画され、画像のリンク切れが発生している為、スリープして上がり切るまで待つ処理。
-			Thread.sleep(3000);
-		} catch (Exception e) {
-		}
-
 		return "redirect:/profile";
 	}
 }

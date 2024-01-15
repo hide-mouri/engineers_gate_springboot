@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -45,4 +46,9 @@ public class Posts extends EntityBase {
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "posts_id", referencedColumnName = "id", insertable = false, updatable = false)
 	private List<PostImages> postImagesList;
+
+	/** ユーザー情報の紐づけ */
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "users_id", referencedColumnName = "id", insertable = false, updatable = false)
+	private Users users;
 }

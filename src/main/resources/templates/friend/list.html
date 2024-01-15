@@ -40,7 +40,7 @@
                 </thead>
                 <tbody>
                   <tr th:each="friends:${friendsList}">
-                    <th scope="row"><img th:src="(*{friends.friendUsers.iconUri} ?: '/assets/img/profile-dummy.png') + '?' + ${#dates.format(#dates.createNow(), 'yyyyMMddHHmmss')}" alt="" style="width: 80px;" /></th>
+                    <th scope="row"><img th:src="(*{friends.friendUsers.iconUri} ? ${@storageService.getDataUri(friends.friendUsers.iconUri)} : '/assets/img/profile-dummy.png')" alt="" style="width: 80px;" class="rounded-circle" /></th>
                     <td><a th:href="@{/profile/{id}(id=${friends.friendUsers.id})}" th:text="${friends.friendUsers.name}">前田裕司</a></td>
                     <td th:text="${friends.friendUsers.profile}">
                       こんにちは、前田裕司と申します。IT企業でマーケティング部門に勤務しています。<br>クリエイティブな発想力を活かして、常に新しいアイデアを提案しています。<br>趣味は音楽鑑賞と野球観戦です。
