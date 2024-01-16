@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.dcworks.engineersgate.egsns.core.annotation.LoginCheck;
+import jp.dcworks.engineersgate.egsns.dto.RequestComment;
 import jp.dcworks.engineersgate.egsns.dto.RequestModifyAccount;
 import jp.dcworks.engineersgate.egsns.entity.Friends;
 import jp.dcworks.engineersgate.egsns.entity.Posts;
@@ -74,6 +75,10 @@ public class ProfileController extends AppController {
 			profileUsers = usersService.findById(usersId);
 		}
 		model.addAttribute("profileUsers", profileUsers);
+
+		if (!model.containsAttribute("requestComment")) {
+			model.addAttribute("requestComment", new RequestComment());
+		}
 
 		// 申請情報を検索。
 		Friends friends = friendsService.findByUsersIdAndFriendUsersId(loginUsers.getId(), profileUsers.getId());

@@ -78,13 +78,11 @@
 
                 <div class="card-body" th:if="${not #lists.isEmpty(posts.postCommentsList)}">
                   <div class="news">
-
                     <div class="post-item clearfix" th:each="postComments:${posts.postCommentsList}">
                       <img th:src="(*{postComments.users.iconUri} ? ${@storageService.getDataUri(postComments.users.iconUri)} : '/assets/img/profile-dummy.png')" alt="" class="rounded-circle">
                       <h4><a th:href="@{/profile/{id}(id=${postComments.users.id})}" th:text="${postComments.users.name}">前田裕司</a></h4>
                       <p th:text="${postComments.comment}">ハヤシライス、ピリ辛味噌バターコーンのスープパスタを食べてきました。...</p>
                     </div>
-
                   </div><!-- End sidebar recent posts-->
                 </div>
               </div>

@@ -1,5 +1,8 @@
 package jp.dcworks.engineersgate.egsns.controller;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -7,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -34,14 +38,17 @@ public class CommentController extends AppController {
 	 * @param requestShare 入力フォームの内容
 	 * @param result バリデーション結果
 	 * @param redirectAttributes リダイレクト時に使用するオブジェクト
+	 * @throws URISyntaxException 
 	 */
 	@PostMapping("/{postsId}")
-	public String indes(@PathVariable("postsId") String postsId,
+	public String indes(
+			@RequestHeader("Referer") String referer,
+			@PathVariable("postsId") String postsId,
 			@Validated @ModelAttribute RequestComment requestComment,
 			BindingResult result,
-			RedirectAttributes redirectAttributes) {
+			RedirectAttributes redirectAttributes) throws URISyntaxException {
 
-		log.info("コメント投稿処理のアクションが呼ばれました。：requestComment={}", requestComment);
+		log.info("コメント投稿処理のアクションが呼ばれました。：requestComment={}, referer={}", requestComment, referer);
 
 		// バリデーション。
 		if (result.hasErrors()) {
@@ -51,7 +58,7 @@ public class CommentController extends AppController {
 			redirectAttributes.addFlashAttribute("requestComment", requestComment);
 
 			// 入力画面へリダイレクト。
-			return "redirect:/home";
+			return "redirect:" + new URI(referer).getPath();
 		}
 
 		// TODO バリデーション（投稿ID）
@@ -63,6 +70,6 @@ public class CommentController extends AppController {
 		// コメント登録処理。
 		postCommentsService.save(requestComment, lPostsId, usersId);
 
-		return "redirect:/home";
+		return "redirect:" + new URI(referer).getPath();
 	}
 }
