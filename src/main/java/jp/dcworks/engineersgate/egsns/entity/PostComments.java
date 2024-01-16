@@ -1,7 +1,5 @@
 package jp.dcworks.engineersgate.egsns.entity;
 
-import java.util.List;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -10,19 +8,18 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 投稿Entityクラス。
+ * 投稿コメントEntityクラス。
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "posts")
-public class Posts extends EntityBase {
+@Table(name = "post_comments")
+public class PostComments extends EntityBase {
 
 	/** ID */
 	@Id
@@ -30,27 +27,17 @@ public class Posts extends EntityBase {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	/** 投稿ID */
+	@Column(name = "posts_id", nullable = false)
+	private Long postsId;
+
 	/** ユーザーID */
 	@Column(name = "users_id", nullable = false)
 	private Long usersId;
 
-	/** タイトル */
-	@Column(name = "title", nullable = false)
-	private String title;
-
-	/** 本文 */
-	@Column(name = "body", nullable = false)
-	private String body;
-
-	/** 投稿画像情報の紐づけ */
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name = "posts_id", referencedColumnName = "id", insertable = false, updatable = false)
-	private List<PostImages> postImagesList;
-
-	/** 投稿コメント情報の紐づけ */
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name = "posts_id", referencedColumnName = "id", insertable = false, updatable = false)
-	private List<PostComments> postCommentsList;
+	/** コメント */
+	@Column(name = "comment", nullable = false)
+	private String comment;
 
 	/** ユーザー情報の紐づけ */
 	@ManyToOne(fetch = FetchType.LAZY)

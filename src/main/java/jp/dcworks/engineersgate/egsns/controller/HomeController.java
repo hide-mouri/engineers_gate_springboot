@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.dcworks.engineersgate.egsns.core.annotation.LoginCheck;
+import jp.dcworks.engineersgate.egsns.dto.RequestComment;
 import jp.dcworks.engineersgate.egsns.dto.RequestShare;
 import jp.dcworks.engineersgate.egsns.entity.Posts;
 import jp.dcworks.engineersgate.egsns.service.PostsService;
@@ -51,6 +52,9 @@ public class HomeController extends AppController {
 
 		if (!model.containsAttribute("requestShare")) {
 			model.addAttribute("requestShare", new RequestShare());
+		}
+		if (!model.containsAttribute("requestComment")) {
+			model.addAttribute("requestComment", new RequestComment());
 		}
 
 		// 投稿一覧取得。

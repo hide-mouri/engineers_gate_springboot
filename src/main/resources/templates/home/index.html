@@ -66,9 +66,9 @@
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                   </div>
-                  <form class="row g-3">
+                  <form class="row g-3" method="post" th:action="@{/comment/{postsId}(postsId=${posts.id})}" th:object="${requestComment}">
                     <div class="col-md-12">
-                      <input type="text" class="form-control" placeholder="コメントを入力...">
+                      <input type="text" class="form-control" placeholder="コメントを入力..." th:field="*{comment}">
                     </div>
                     <div class="text-center">
                       <button type="submit" class="btn btn-primary">コメントする</button>
@@ -76,36 +76,13 @@
                   </form>
                 </div>
 
-                <div class="card-body">
+                <div class="card-body" th:if="${not #lists.isEmpty(posts.postCommentsList)}">
                   <div class="news">
-                    <div class="post-item clearfix">
-                      <img src="/assets/img/news-1.jpg" alt="">
-                      <h4><a href="users-profile.jsp">前田裕司</a></h4>
-                      <p>ハヤシライス、ピリ辛味噌バターコーンのスープパスタを食べてきました。...</p>
-                    </div>
 
-                    <div class="post-item clearfix">
-                      <img src="/assets/img/news-2.jpg" alt="">
-                      <h4><a href="users-profile.jsp">深沢雅彦</a></h4>
-                      <p>ハイビスカス香るまろやかなホットカクテルで、冬の寒さをくつろぎながら乗り切りましょう！...</p>
-                    </div>
-
-                    <div class="post-item clearfix">
-                      <img src="/assets/img/news-3.jpg" alt="">
-                      <h4><a href="users-profile.jsp">哀川涼</a></h4>
-                      <p>新しい季節を迎え、新しい門出を迎えるお客様へポール・スチュアートの特別なメニューをご用意しました。...</p>
-                    </div>
-
-                    <div class="post-item clearfix">
-                      <img src="/assets/img/news-4.jpg" alt="">
-                      <h4><a href="users-profile.jsp">奥山恵子</a></h4>
-                      <p>トライアスロンの練習は疲労をもたらします。でも習慣にしている練習をやめてしまうと、もっと体が疲労するというのです。...</p>
-                    </div>
-
-                    <div class="post-item clearfix">
-                      <img src="/assets/img/news-5.jpg" alt="">
-                      <h4><a href="users-profile.jsp">矢部将也</a></h4>
-                      <p>東京は、日中は日差しが出て少し気温が上がったように感じます...</p>
+                    <div class="post-item clearfix" th:each="postComments:${posts.postCommentsList}">
+                      <img th:src="(*{postComments.users.iconUri} ? ${@storageService.getDataUri(postComments.users.iconUri)} : '/assets/img/profile-dummy.png')" alt="" class="rounded-circle">
+                      <h4><a th:href="@{/profile/{id}(id=${postComments.users.id})}" th:text="${postComments.users.name}">前田裕司</a></h4>
+                      <p th:text="${postComments.comment}">ハヤシライス、ピリ辛味噌バターコーンのスープパスタを食べてきました。...</p>
                     </div>
 
                   </div><!-- End sidebar recent posts-->

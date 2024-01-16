@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import jp.dcworks.engineersgate.egsns.dto.RequestShare;
 import jp.dcworks.engineersgate.egsns.entity.PostImages;
 import jp.dcworks.engineersgate.egsns.entity.Posts;
-import jp.dcworks.engineersgate.egsns.repository.PostsImagesRepository;
+import jp.dcworks.engineersgate.egsns.repository.PostImagesRepository;
 import jp.dcworks.engineersgate.egsns.repository.PostsRepository;
 import lombok.extern.log4j.Log4j2;
 
@@ -25,7 +25,7 @@ public class PostsService {
 
 	/** 投稿関連リポジトリインターフェース。 */
 	@Autowired
-	private PostsImagesRepository postsImagesRepository;
+	private PostImagesRepository postsImagesRepository;
 
 	/**
 	 * 投稿処理を行う。
