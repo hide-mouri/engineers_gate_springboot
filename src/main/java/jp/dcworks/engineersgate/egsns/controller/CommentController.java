@@ -2,6 +2,8 @@ package jp.dcworks.engineersgate.egsns.controller;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +22,7 @@ import jp.dcworks.engineersgate.egsns.service.PostCommentsService;
 import lombok.extern.log4j.Log4j2;
 
 /**
- * ※TODO 適宜実装を入れてください。
+ * 投稿コメントコントローラー。
  */
 @LoginCheck
 @Log4j2
@@ -54,7 +56,10 @@ public class CommentController extends AppController {
 		if (result.hasErrors()) {
 			log.warn("バリデーションエラーが発生しました。：requestComment={}, result={}", requestComment, result);
 
-			redirectAttributes.addFlashAttribute("validationErrors", result);
+			Map<Long, BindingResult> errorMap = new HashMap<Long, BindingResult>();
+			errorMap.put(Long.parseLong(postsId), result);
+
+			redirectAttributes.addFlashAttribute("validationCommentErrors", errorMap);
 			redirectAttributes.addFlashAttribute("requestComment", requestComment);
 
 			// 入力画面へリダイレクト。

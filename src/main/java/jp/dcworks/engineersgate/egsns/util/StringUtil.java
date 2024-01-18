@@ -89,6 +89,23 @@ public class StringUtil {
 	}
 
 	/**
+	 * 改行コードを<br />、または、<br>タグに変換した情報を返却する。
+	 * @param str 入力文字列
+	 * @param maxWidth 表示時の最大文字数。（maxWidthには"..."も含まれるため4以上にして下さい。4未満の場合、4を設定した結果を返します。）
+	 * @return 変換後の文字列を返却します。
+	 */
+	public static String nl2br(String str, int maxWidth) {
+		if (str == null || "".equals(str)) {
+			return "";
+		}
+
+		String tmpStr = StringUtils.abbreviate(str, maxWidth);
+
+		// タグ文字が含まれる場合はエスケープする。
+		return nl2br(tmpStr, true);
+	}
+
+	/**
 	 * 省略表示を行います。
 	 *
 	 * @param str 省略したい文字
@@ -101,4 +118,5 @@ public class StringUtil {
 		}
 		return StringUtils.abbreviate(str, maxWidth);
 	}
+
 }

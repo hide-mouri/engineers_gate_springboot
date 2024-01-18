@@ -19,7 +19,7 @@ import jp.dcworks.engineersgate.egsns.util.StringUtil;
 import lombok.extern.log4j.Log4j2;
 
 /**
- * ※TODO 適宜実装を入れてください。
+ * アカウント登録画面コントローラー。
  */
 @Log4j2
 @Controller

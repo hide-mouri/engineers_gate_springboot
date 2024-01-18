@@ -59,13 +59,14 @@
                 </div>
 
                 <div class="card-body">
-                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <div>
+                  <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${validationCommentErrors != null && validationCommentErrors.containsKey(posts.id)}">
+                    <div th:each="error : ${validationCommentErrors.get(posts.id).getAllErrors()}">
                       <i class="bi bi-exclamation-octagon me-1"></i>
-                      <span>エラーメッセージを表示します。</span>
+                      <span th:text="${error.getDefaultMessage()}">エラーメッセージを表示します。</span>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                   </div>
+
                   <form class="row g-3" method="post" th:action="@{/comment/{postsId}(postsId=${posts.id})}" th:object="${requestComment}">
                     <div class="col-md-12">
                       <input type="text" class="form-control" placeholder="コメントを入力..." th:field="*{comment}">
@@ -98,10 +99,10 @@
             <div class="card-body">
               <h5 class="card-title">今の気持ちをシェアしよう！</h5>
 
-              <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <div>
+              <div th:if="${validationErrors != null}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <div th:each="error : ${validationErrors.getAllErrors()}">
                   <i class="bi bi-exclamation-octagon me-1"></i>
-                  <span>エラーメッセージを表示します。</span>
+                  <span th:text="${error.getDefaultMessage()}">エラーメッセージを表示します。</span>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
@@ -132,42 +133,17 @@
           </div>
 
           <!-- News & Updates Traffic -->
-          <div class="card">
+          <div class="card" th:if="${not #lists.isEmpty(newsList)}">
 
             <div class="card-body">
               <h5 class="card-title">ニュース</h5>
 
               <div class="news">
-                <div class="post-item clearfix">
-                  <img src="/assets/img/news-1.jpg" alt="">
-                  <h4><a href="users-profile.jsp">今週ランチです。</a></h4>
-                  <p>ハヤシライス、ピリ辛味噌バターコーンのスープパスタを食べてきました。...</p>
+                <div class="post-item clearfix" th:each="news:${newsList}">
+                  <img th:if="${not #lists.isEmpty(news.postImagesList)}" th:src="${@storageService.getDataUri(news.postImagesList.get(0).imageUri)}"  src="/assets/img/news-1.jpg" alt="">
+                  <h4><a th:href="@{/profile/{id}(id=${news.users.id})}" th:text="${news.title}">今週ランチです。</a> | <span class="badge border-secondary border-1 text-secondary"><a th:href="@{/profile/{id}(id=${news.users.id})}" th:text="${news.users.name}">山田</a></span></h4>
+                  <p th:utext="${@stringUtil.nl2br(news.body, 150)}">ハヤシライス、ピリ辛味噌バターコーンのスープパスタを食べてきました。...</p>
                 </div>
-
-                <div class="post-item clearfix">
-                  <img src="/assets/img/news-2.jpg" alt="">
-                  <h4><a href="users-profile.jsp">様々なカクテルに秘められたストーリーをチェック</a></h4>
-                  <p>ハイビスカス香るまろやかなホットカクテルで、冬の寒さをくつろぎながら乗り切りましょう！...</p>
-                </div>
-
-                <div class="post-item clearfix">
-                  <img src="/assets/img/news-3.jpg" alt="">
-                  <h4><a href="users-profile.jsp">【MEN】HOW TO FIND THE BEST SUIT for FRESHERS CAMPAIGN</a></h4>
-                  <p>新しい季節を迎え、新しい門出を迎えるお客様へポール・スチュアートの特別なメニューをご用意しました。...</p>
-                </div>
-
-                <div class="post-item clearfix">
-                  <img src="/assets/img/news-4.jpg" alt="">
-                  <h4><a href="users-profile.jsp">20歳から続けていたトライアスロンを、仕事に集中するため一時的にやめてみたら</a></h4>
-                  <p>トライアスロンの練習は疲労をもたらします。でも習慣にしている練習をやめてしまうと、もっと体が疲労するというのです。...</p>
-                </div>
-
-                <div class="post-item clearfix">
-                  <img src="/assets/img/news-5.jpg" alt="">
-                  <h4><a href="users-profile.jsp">こんにちは！</a></h4>
-                  <p>東京は、日中は日差しが出て少し気温が上がったように感じます...</p>
-                </div>
-
               </div><!-- End sidebar recent posts-->
 
             </div>

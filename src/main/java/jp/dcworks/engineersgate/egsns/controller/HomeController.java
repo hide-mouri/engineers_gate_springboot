@@ -25,7 +25,7 @@ import jp.dcworks.engineersgate.egsns.util.StringUtil;
 import lombok.extern.log4j.Log4j2;
 
 /**
- * ※TODO 適宜実装を入れてください。
+ * ホーム画面コントローラー。
  */
 @LoginCheck
 @Log4j2
@@ -61,6 +61,9 @@ public class HomeController extends AppController {
 		List<Posts> postsList = postsService.findAllPosts();
 		model.addAttribute("postsList", postsList);
 
+		// TODO とりあえず表示するためだけの暫定実装。同じ人の投稿だけにならないようにユーザー毎の最新を取得するようにする。
+		model.addAttribute("newsList", postsList);
+
 		return "home/index";
 	}
 
@@ -73,8 +76,8 @@ public class HomeController extends AppController {
 	 */
 	@PostMapping("/share")
 	public String share(@Validated @ModelAttribute RequestShare requestShare,
-			@RequestParam("postImagesFile") MultipartFile postImagesFile,
 			BindingResult result,
+			@RequestParam("postImagesFile") MultipartFile postImagesFile,
 			RedirectAttributes redirectAttributes) {
 
 		log.info("コメント投稿処理のアクションが呼ばれました。：requestShare={}", requestShare);
@@ -101,7 +104,7 @@ public class HomeController extends AppController {
 			redirectAttributes.addFlashAttribute("requestShare", requestShare);
 
 			// 入力画面へリダイレクト。
-			return "redirect:/profile";
+			return "redirect:/home";
 		}
 
 		// ログインユーザー情報取得。
