@@ -36,6 +36,12 @@
             <div class="col-lg-12">
               <!-- Card with an image on top -->
               <div class="card" th:each="posts:${postsList}">
+                <div class="card-header">
+                  <h5 class="card-title2">
+                    <img th:src="(*{posts.users.iconUri} ? ${@storageService.getDataUri(posts.users.iconUri)} : '/assets/img/profile-dummy.png')" src="/assets/profileimg/profile-img.jpg" alt="Profile" class="rounded-circle" style="height: 40px;">
+                    <a th:text="${posts.users.name}">山田</a>&nbsp;<span th:text="|${@dateUtil.format(posts.created)}（${@dateUtil.prettyTimeFormat(posts.created)}）|">Today</span>
+                  </h5>
+                </div>
                 <div th:each="postImages:${posts.postImagesList}">
                   <img th:src="${@storageService.getDataUri(postImages.imageUri)}" src="/assets/img/card.jpg" class="card-img-top" alt="..." />
                 </div>

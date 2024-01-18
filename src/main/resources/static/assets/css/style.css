@@ -262,6 +262,20 @@ h6 {
   font-weight: 400;
 }
 
+.card-title2 {
+  padding: 5px 0 0 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: #012970;
+  font-family: "Poppins", sans-serif;
+}
+
+.card-title2 span {
+  color: #899bbd;
+  font-size: 14px;
+  font-weight: 400;
+}
+
 .card-body {
   padding: 0 20px 20px 20px;
 }

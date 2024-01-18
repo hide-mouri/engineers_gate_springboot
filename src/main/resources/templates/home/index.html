@@ -37,8 +37,10 @@
               <!-- Card with an image on top -->
               <div class="card" th:each="posts:${postsList}">
                 <div class="card-header">
-                  <img th:src="(*{posts.users.iconUri} ? ${@storageService.getDataUri(posts.users.iconUri)} : '/assets/img/profile-dummy.png')" src="/assets/profileimg/profile-img.jpg" alt="Profile" class="rounded-circle" style="height: 40px;">
-                  <a th:href="@{/profile/{id}(id=${posts.users.id})}" th:text="${posts.users.name}">山田</a>
+                  <h5 class="card-title2">
+                    <img th:src="(*{posts.users.iconUri} ? ${@storageService.getDataUri(posts.users.iconUri)} : '/assets/img/profile-dummy.png')" src="/assets/profileimg/profile-img.jpg" alt="Profile" class="rounded-circle" style="height: 40px;">
+                    <a th:href="@{/profile/{id}(id=${posts.users.id})}" th:text="${posts.users.name}">山田</a>&nbsp;<span th:text="|${@dateUtil.format(posts.created)}（${@dateUtil.prettyTimeFormat(posts.created)}）|">Today</span>
+                  </h5>
                 </div>
                 <div th:each="postImages:${posts.postImagesList}">
                   <img th:src="${@storageService.getDataUri(postImages.imageUri)}" src="/assets/img/card.jpg" class="card-img-top" alt="..." />
@@ -81,7 +83,7 @@
                   <div class="news">
                     <div class="post-item clearfix" th:each="postComments:${posts.postCommentsList}">
                       <img th:src="(*{postComments.users.iconUri} ? ${@storageService.getDataUri(postComments.users.iconUri)} : '/assets/img/profile-dummy.png')" alt="" class="rounded-circle">
-                      <h4><a th:href="@{/profile/{id}(id=${postComments.users.id})}" th:text="${postComments.users.name}">前田裕司</a></h4>
+                      <h4><a th:href="@{/profile/{id}(id=${postComments.users.id})}" th:text="|${postComments.users.name} ${@dateUtil.format(posts.created)}（${@dateUtil.prettyTimeFormat(postComments.created)}）|">前田裕司</a></h4>
                       <p th:text="${postComments.comment}">ハヤシライス、ピリ辛味噌バターコーンのスープパスタを食べてきました。...</p>
                     </div>
                   </div><!-- End sidebar recent posts-->
@@ -141,7 +143,9 @@
               <div class="news">
                 <div class="post-item clearfix" th:each="news:${newsList}">
                   <img th:if="${not #lists.isEmpty(news.postImagesList)}" th:src="${@storageService.getDataUri(news.postImagesList.get(0).imageUri)}"  src="/assets/img/news-1.jpg" alt="">
-                  <h4><a th:href="@{/profile/{id}(id=${news.users.id})}" th:text="${news.title}">今週ランチです。</a> | <span class="badge border-secondary border-1 text-secondary"><a th:href="@{/profile/{id}(id=${news.users.id})}" th:text="${news.users.name}">山田</a></span></h4>
+                  <h4>
+                    <a th:href="@{/profile/{id}(id=${news.users.id})}" th:text="${news.title}">今週ランチです。</a> | <span class="badge border-secondary border-1 text-secondary"><a th:href="@{/profile/{id}(id=${news.users.id})}" th:text="|${news.users.name}（${@dateUtil.prettyTimeFormat(news.created)}）|">山田</a></span>
+                  </h4>
                   <p th:utext="${@stringUtil.nl2br(news.body, 150)}">ハヤシライス、ピリ辛味噌バターコーンのスープパスタを食べてきました。...</p>
                 </div>
               </div><!-- End sidebar recent posts-->

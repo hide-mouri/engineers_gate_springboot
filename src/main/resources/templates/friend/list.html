@@ -46,11 +46,11 @@
                 <tbody>
                   <tr th:each="friends:${friendsList}">
                     <th scope="row"><img th:src="(*{friends.friendUsers.iconUri} ? ${@storageService.getDataUri(friends.friendUsers.iconUri)} : '/assets/img/profile-dummy.png')" alt="" style="width: 80px;" class="rounded-circle" /></th>
-                    <td><a th:href="@{/profile/{id}(id=${friends.friendUsers.id})}" th:text="${friends.friendUsers.name}">前田裕司</a></td>
-                    <td th:text="${friends.friendUsers.profile}">
+                    <td style="white-space: nowrap;"><a th:href="@{/profile/{id}(id=${friends.friendUsers.id})}" th:text="${friends.friendUsers.name}">前田裕司</a></td>
+                    <td style="width: 65%;" th:utext="${@stringUtil.nl2br(friends.friendUsers.profile, 100)}">
                       こんにちは、前田裕司と申します。IT企業でマーケティング部門に勤務しています。<br>クリエイティブな発想力を活かして、常に新しいアイデアを提案しています。<br>趣味は音楽鑑賞と野球観戦です。
                     </td>
-                    <td th:switch="${friends.approvalStatus}">
+                    <td style="white-space: nowrap;" th:switch="${friends.approvalStatus}">
                       <div th:case="${T(jp.dcworks.engineersgate.egsns.core.AppConst).FRIENDS_APPROVAL_STATUS_IN_PROGRESS}">
                         <button class="btn btn-outline-primary" disabled>申請中</button>&nbsp;
                         <a th:href="@{/friend/request/cancel/{id}(id=${friends.friendUsers.id})}" class="btn btn-danger">キャンセル</a>&nbsp;
