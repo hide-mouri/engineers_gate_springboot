@@ -191,8 +191,54 @@ public class ProfileController extends AppController {
 			return "redirect:/profile";
 		}
 
+		String currentPassword = requestModifyPassword.getCurrentPassword();
+		String newPassword = requestModifyPassword.getNewPassword();
+		String renewPassword = requestModifyPassword.getRenewPassword();
+
 		// ユーザー検索を行う。
 		Users users = getUsers();
+
+		// 現在のパスワードチェック。
+		if (!users.getPassword().equals(currentPassword)) {
+			log.warn("現在のパスワードが違います。：requestModifyPassword={}", requestModifyPassword);
+
+			// エラーメッセージをセット。
+			result.rejectValue("currentPassword", StringUtil.BLANK, "現在のパスワードが違います。");
+
+			redirectAttributes.addFlashAttribute("validationErrorsPassword", result);
+			redirectAttributes.addFlashAttribute("requestModifyPassword", requestModifyPassword);
+
+			// 入力画面へリダイレクト。
+			return "redirect:/profile";
+		}
+
+		// 新しいパスワードチェック。
+		if (!newPassword.equals(renewPassword)) {
+			log.warn("新しいパスワードと新しいパスワードの再入力が一致しません。：requestModifyPassword={}", requestModifyPassword);
+
+			// エラーメッセージをセット。
+			result.rejectValue("newPassword", StringUtil.BLANK, "新しいパスワードと新しいパスワードの再入力が一致しません。");
+
+			redirectAttributes.addFlashAttribute("validationErrorsPassword", result);
+			redirectAttributes.addFlashAttribute("requestModifyPassword", requestModifyPassword);
+
+			// 入力画面へリダイレクト。
+			return "redirect:/profile";
+		}
+
+		// 現在のパスワードと、新しいパスワードのチェック。
+		if (currentPassword.equals(newPassword)) {
+			log.warn("現在のパスワードと同じパスワードは設定できません。：requestModifyPassword={}", requestModifyPassword);
+
+			// エラーメッセージをセット。
+			result.rejectValue("currentPassword", StringUtil.BLANK, "現在のパスワードと同じパスワードは設定できません");
+
+			redirectAttributes.addFlashAttribute("validationErrorsPassword", result);
+			redirectAttributes.addFlashAttribute("requestModifyPassword", requestModifyPassword);
+
+			// 入力画面へリダイレクト。
+			return "redirect:/profile";
+		}
 
 		users.setPassword(requestModifyPassword.getNewPassword());
 		usersService.save(users);
