@@ -98,4 +98,12 @@ public class UsersService {
 	public void save(Users users) {
 		repository.save(users);
 	}
+
+	/**
+	 * ユーザー一覧を取得する。
+	 * @return ユーザー一覧
+	 */
+	public Iterable<Users> findAll() {
+		return repository.findAll();
+	}
 }
