@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jp.dcworks.engineersgate.egsns.core.annotation.LoginCheck;
 import jp.dcworks.engineersgate.egsns.dto.RequestComment;
 import jp.dcworks.engineersgate.egsns.dto.RequestModifyAccount;
+import jp.dcworks.engineersgate.egsns.dto.RequestModifyPassword;
 import jp.dcworks.engineersgate.egsns.entity.Friends;
 import jp.dcworks.engineersgate.egsns.entity.Posts;
 import jp.dcworks.engineersgate.egsns.entity.Users;
@@ -80,6 +81,10 @@ public class ProfileController extends AppController {
 			model.addAttribute("requestComment", new RequestComment());
 		}
 
+		if (!model.containsAttribute("requestModifyPassword")) {
+			model.addAttribute("requestModifyPassword", new RequestModifyPassword());
+		}
+
 		// 申請情報を検索。
 		Friends friends = friendsService.findByUsersIdAndFriendUsersId(loginUsers.getId(), profileUsers.getId());
 		model.addAttribute("friends", friends);
@@ -100,9 +105,10 @@ public class ProfileController extends AppController {
 	 * @param redirectAttributes リダイレクト時に使用するオブジェクト
 	 */
 	@PostMapping("/regist")
-	public String regist(@Validated @ModelAttribute RequestModifyAccount requestModifyAccount,
-			@RequestParam("profileFile") MultipartFile profileFile,
+	public String regist(
+			@Validated @ModelAttribute RequestModifyAccount requestModifyAccount,
 			BindingResult result,
+			@RequestParam("profileFile") MultipartFile profileFile,
 			RedirectAttributes redirectAttributes) {
 
 		log.info("プロフィール編集処理のアクションが呼ばれました。");
@@ -112,7 +118,7 @@ public class ProfileController extends AppController {
 			// javascriptのバリデーションを改ざんしてリクエストした場合に通る処理。
 			log.warn("バリデーションエラーが発生しました。：requestModifyAccount={}, result={}", requestModifyAccount, result);
 
-			redirectAttributes.addFlashAttribute("validationErrors", result);
+			redirectAttributes.addFlashAttribute("validationErrorsProfile", result);
 			redirectAttributes.addFlashAttribute("requestModifyAccount", requestModifyAccount);
 
 			// 入力画面へリダイレクト。
@@ -126,7 +132,7 @@ public class ProfileController extends AppController {
 			// エラーメッセージをセット。
 			result.rejectValue("profileFileHidden", StringUtil.BLANK, "画像ファイルを指定してください。");
 
-			redirectAttributes.addFlashAttribute("validationErrors", result);
+			redirectAttributes.addFlashAttribute("validationErrorsProfile", result);
 			redirectAttributes.addFlashAttribute("requestModifyAccount", requestModifyAccount);
 
 			// 入力画面へリダイレクト。
@@ -153,6 +159,42 @@ public class ProfileController extends AppController {
 		users.setEmailAddress(requestModifyAccount.getEmailAddress());
 		users.setProfile(requestModifyAccount.getProfile());
 		users.setIconUri(fileUri);
+		usersService.save(users);
+
+		return "redirect:/profile";
+	}
+
+	/**
+	 * [POST]パスワード編集アクション。
+	 *
+	 * @param requestModifyAccount 入力フォームの内容
+	 * @param result バリデーション結果
+	 * @param redirectAttributes リダイレクト時に使用するオブジェクト
+	 */
+	@PostMapping("/regist_password")
+	public String registPassword(
+			@Validated @ModelAttribute RequestModifyPassword requestModifyPassword,
+			BindingResult result,
+			RedirectAttributes redirectAttributes) {
+
+		log.info("パスワード編集処理のアクションが呼ばれました。");
+
+		// バリデーション。
+		if (result.hasErrors()) {
+			// javascriptのバリデーションを改ざんしてリクエストした場合に通る処理。
+			log.warn("バリデーションエラーが発生しました。：requestModifyPassword={}, result={}", requestModifyPassword, result);
+
+			redirectAttributes.addFlashAttribute("validationErrorsPassword", result);
+			redirectAttributes.addFlashAttribute("requestModifyPassword", requestModifyPassword);
+
+			// 入力画面へリダイレクト。
+			return "redirect:/profile";
+		}
+
+		// ユーザー検索を行う。
+		Users users = getUsers();
+
+		users.setPassword(requestModifyPassword.getNewPassword());
 		usersService.save(users);
 
 		return "redirect:/profile";

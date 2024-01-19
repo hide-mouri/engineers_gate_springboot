@@ -122,21 +122,21 @@
               <!-- Bordered Tabs -->
               <ul class="nav nav-tabs nav-tabs-bordered">
                 <li class="nav-item">
-                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview" th:disabled="${users.id != profileUsers.id}">基本データ</button>
+                  <button th:classappend="${validationErrorsProfile == null && validationErrorsPassword == null} ? 'active' : ''" class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-overview" th:disabled="${users.id != profileUsers.id}">基本データ</button>
                 </li>
 
                 <li th:if="${users.id == profileUsers.id}" class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">プロフィール編集</button>
+                  <button th:classappend="${validationErrorsProfile == null} ? '' : 'active'" class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">プロフィール編集</button>
                 </li>
 
                 <li th:if="${users.id == profileUsers.id}" class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">パスワード変更</button>
+                  <button th:classappend="${validationErrorsPassword == null} ? '' : 'active'" class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">パスワード変更</button>
                 </li>
               </ul>
 
               <div class="tab-content pt-2">
 
-                <div class="tab-pane fade show active profile-overview" id="profile-overview" th:object="${profileUsers}">
+                <div th:classappend="${validationErrorsProfile == null && validationErrorsPassword == null} ? 'show active' : ''" class="tab-pane fade profile-overview" id="profile-overview" th:object="${profileUsers}">
                   <h5 class="card-title">自己紹介</h5>
                   <p class="small fst-italic" th:utext="*{@stringUtil.nl2br(profile)}">
                     はじめまして、佐藤太郎と申します。私は、大手銀行の投資部門で働いています。投資に対する深い知識と経験を持ち、
@@ -165,11 +165,11 @@
 
                 </div>
 
-                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <div>
+                <div th:classappend="${validationErrorsProfile == null} ? '' : 'show active'" class="tab-pane fade profile-edit pt-3" id="profile-edit">
+                  <div th:if="${validationErrorsProfile != null}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <div th:each="error : ${validationErrorsProfile.getAllErrors()}">
                       <i class="bi bi-exclamation-octagon me-1"></i>
-                      <span>エラーメッセージを表示します。</span>
+                      <span th:text="${error.getDefaultMessage()}">エラーメッセージ</span>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                   </div>
@@ -229,35 +229,35 @@
 
                 </div>
 
-                <div class="tab-pane fade pt-3" id="profile-change-password">
-                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <div>
+                <div th:classappend="${validationErrorsPassword == null} ? '' : 'show active'" class="tab-pane fade pt-3" id="profile-change-password">
+                  <div th:if="${validationErrorsPassword != null}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <div th:each="error : ${validationErrorsPassword.getAllErrors()}">
                       <i class="bi bi-exclamation-octagon me-1"></i>
-                      <span>エラーメッセージを表示します。</span>
+                      <span th:text="${error.getDefaultMessage()}">エラーメッセージ</span>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                   </div>
 
                   <!-- Change Password Form -->
-                  <form>
+                  <form method="post" novalidate th:action="@{/profile/regist_password}" th:object="${requestModifyPassword}">
                     <div class="row mb-3">
                       <label for="currentPassword" class="col-md-4 col-lg-4 col-form-label">現在のパスワード</label>
                       <div class="col-md-8 col-lg-8">
-                        <input name="password" type="password" class="form-control" id="currentPassword">
+                        <input name="password" type="password" class="form-control" id="currentPassword" th:field="*{currentPassword}">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="newPassword" class="col-md-4 col-lg-4 col-form-label">新しいパスワード</label>
                       <div class="col-md-8 col-lg-8">
-                        <input name="newpassword" type="password" class="form-control" id="newPassword">
+                        <input name="newpassword" type="password" class="form-control" id="newPassword" th:field="*{newPassword}">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="renewPassword" class="col-md-4 col-lg-4 col-form-label">新しいパスワードを再入力</label>
                       <div class="col-md-8 col-lg-8">
-                        <input name="renewpassword" type="password" class="form-control" id="renewPassword">
+                        <input name="renewpassword" type="password" class="form-control" id="renewPassword" th:field="*{renewPassword}">
                       </div>
                     </div>
 
