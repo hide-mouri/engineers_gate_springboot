@@ -2,12 +2,9 @@ package jp.dcworks.engineersgate.egsns.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -38,10 +35,5 @@ public class Friends extends EntityBase {
 	/** 承認ステータス（1.申請中[自分]、2.承認待ち[相手]、3.承認[自分]、4.承諾[相手]） */
 	@Column(name = "approval_status", nullable = false)
 	private Integer approvalStatus;
-
-	/** フレンド情報としてユーザー情報の紐づけ */
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "friend_users_id", referencedColumnName = "id", insertable = false, updatable = false)
-	private Users friendUsers;
 
 }

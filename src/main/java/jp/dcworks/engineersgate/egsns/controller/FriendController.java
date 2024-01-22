@@ -1,5 +1,8 @@
 package jp.dcworks.engineersgate.egsns.controller;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,7 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -54,6 +58,39 @@ public class FriendController extends AppController {
 		List<Friends> friendsList = friendsService.findByFriendsList(loginUsersId);
 		model.addAttribute("friendsList", friendsList);
 
+		// ユーザー情報を取得する。
+		Iterable<Users> usersIterableList = usersService.findAll();
+		List<Users> usersList = new ArrayList<Users>();
+
+		// 自身のフレンド情報を取得する。
+		List<Friends> tmpFriendsList = null;
+		for (Users users : usersIterableList) {
+			if (loginUsersId.equals(users.getId().longValue())) {
+				tmpFriendsList = users.getFriendsList();
+
+			} else {
+				// 自分を除外してリスト作成。
+				usersList.add(users);
+			}
+		}
+
+		// 承認ステータス情報の付与。
+		for (Friends friends : tmpFriendsList) {
+			Long friendUsersId = friends.getFriendUsersId();
+
+			int size = usersList.size();
+			for (int i = 0; i < size; i++) {
+				Users users = usersList.get(i);
+				if (friendUsersId.equals(users.getId())) {
+					users.setFriendsInfo(friends);
+					usersList.set(i, users);
+					break;
+				}
+			}
+		}
+
+		model.addAttribute("usersList", usersList);
+
 		return "friend/list";
 	}
 
@@ -63,10 +100,14 @@ public class FriendController extends AppController {
 	 * @param model 入力フォームのオブジェクト
 	 * @param result バリデーション結果
 	 * @param usersId ユーザーID
+	 * @throws URISyntaxException 
 	 */
 	@GetMapping("/request/{usersId}")
-	public String sendFriendRequest(Model model, @PathVariable("usersId") String usersId,
-			RedirectAttributes redirectAttributes) {
+	public String sendFriendRequest(
+			@RequestHeader("Referer") String referer,
+			Model model,
+			@PathVariable("usersId") String usersId,
+			RedirectAttributes redirectAttributes) throws URISyntaxException {
 
 		BindingResult bindingResult = new BindException(model, "form");
 
@@ -85,7 +126,7 @@ public class FriendController extends AppController {
 			redirectAttributes.addFlashAttribute("validationErrors", bindingResult);
 
 			// プロフィール画面へリダイレクト。
-			return "redirect:/profile/" + usersId;
+			return "redirect:" + new URI(referer).getPath();
 		}
 
 		// 申請先ユーザーの存在チェック。
@@ -98,7 +139,7 @@ public class FriendController extends AppController {
 			redirectAttributes.addFlashAttribute("validationErrors", bindingResult);
 
 			// プロフィール画面へリダイレクト。
-			return "redirect:/profile/" + usersId;
+			return "redirect:" + new URI(referer).getPath();
 		}
 		Long profileUsersId = profileUsers.getId();
 
@@ -114,14 +155,14 @@ public class FriendController extends AppController {
 			redirectAttributes.addFlashAttribute("validationErrors", bindingResult);
 
 			// プロフィール画面へリダイレクト。
-			return "redirect:/profile/" + usersId;
+			return "redirect:" + new URI(referer).getPath();
 		}
 
 		// ログインユーザー向けに、申請中のレコードを作成。
 		//　申請先のユーザー向けに、承認待ちのレコードを作成。
 		friendsService.saveFriendRequest(loginUsersId, profileUsersId);
 
-		return "redirect:/profile/" + usersId;
+		return "redirect:" + new URI(referer).getPath();
 	}
 
 	/**

@@ -21,13 +21,13 @@
     <section class="section dashboard">
       <div class="row">
 
-        <div class="col-lg-12" th:if="${#lists.isEmpty(friendsList)}">
+        <div class="col-lg-12" th:if="${#lists.isEmpty(usersList)}">
           <div class="alert alert-warning alert-dismissible fade show" role="alert">
               フレンドはいません。
           </div>
         </div>
 
-        <div class="col-lg-12" th:if="${not #lists.isEmpty(friendsList)}">
+        <div class="col-lg-12" th:if="${not #lists.isEmpty(usersList)}">
           <!-- News & Updates Traffic -->
           <div class="card">
             <div class="card-body">
@@ -38,31 +38,34 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">名前</th>
+                    <th scope="col" style="width: 10%;">名前</th>
                     <th scope="col">プロフィール</th>
-                    <th scope="col">承認ステータス</th>
+                    <th scope="col" style="width: 20%;">承認ステータス</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr th:each="friends:${friendsList}">
-                    <th scope="row"><img th:src="(*{friends.friendUsers.iconUri} ? ${@storageService.getDataUri(friends.friendUsers.iconUri)} : '/assets/img/profile-dummy.png')" alt="" style="width: 80px;" class="rounded-circle" /></th>
-                    <td style="white-space: nowrap;"><a th:href="@{/profile/{id}(id=${friends.friendUsers.id})}" th:text="${friends.friendUsers.name}">前田裕司</a></td>
-                    <td style="width: 65%;" th:utext="${@stringUtil.nl2br(friends.friendUsers.profile, 100)}">
+                  <tr th:each="users:${usersList}">
+                    <th scope="row"><img th:src="(*{users.iconUri} ? ${@storageService.getDataUri(users.iconUri)} : '/assets/img/profile-dummy.png')" alt="" style="width: 80px;" class="rounded-circle" /></th>
+                    <td style="white-space: nowrap;"><a th:href="@{/profile/{id}(id=${users.id})}" th:text="${users.name}">前田裕司</a></td>
+                    <td style="width: 65%;" th:utext="${@stringUtil.nl2br(users.profile, 100)}">
                       こんにちは、前田裕司と申します。IT企業でマーケティング部門に勤務しています。<br>クリエイティブな発想力を活かして、常に新しいアイデアを提案しています。<br>趣味は音楽鑑賞と野球観戦です。
                     </td>
-                    <td style="white-space: nowrap;" th:switch="${friends.approvalStatus}">
+                    <td th:if="${users.friendsInfo != null}" style="white-space: nowrap;" th:switch="${users.friendsInfo.approvalStatus}">
                       <div th:case="${T(jp.dcworks.engineersgate.egsns.core.AppConst).FRIENDS_APPROVAL_STATUS_IN_PROGRESS}">
                         <button class="btn btn-outline-primary" disabled>申請中</button>&nbsp;
-                        <a th:href="@{/friend/request/cancel/{id}(id=${friends.friendUsers.id})}" class="btn btn-danger">キャンセル</a>&nbsp;
+                        <a th:href="@{/friend/request/cancel/{id}(id=${users.id})}" class="btn btn-danger">キャンセル</a>&nbsp;
                       </div>
                       <div th:case="${T(jp.dcworks.engineersgate.egsns.core.AppConst).FRIENDS_APPROVAL_STATUS_REVIEW}">
-                        <a th:href="@{/friend/request/approve/{id}(id=${friends.friendUsers.id})}" class="btn btn-primary">承認</a>&nbsp;
-                        <a th:href="@{/friend/request/cancel/{id}(id=${friends.friendUsers.id})}" class="btn btn-danger">却下</a>&nbsp;
+                        <a th:href="@{/friend/request/approve/{id}(id=${users.id})}" class="btn btn-primary">承認</a>&nbsp;
+                        <a th:href="@{/friend/request/cancel/{id}(id=${users.id})}" class="btn btn-danger">却下</a>&nbsp;
                       </div>
                       <div th:case="*">
                         <button class="btn btn-outline-success" disabled>友達</button>&nbsp;
-                        <a th:href="@{/friend/request/cancel/{id}(id=${friends.friendUsers.id})}" class="btn btn-danger">解除</a>&nbsp;
+                        <a th:href="@{/friend/request/cancel/{id}(id=${users.id})}" class="btn btn-danger">解除</a>&nbsp;
                       </div>
+                    </td>
+                    <td th:if="${users.friendsInfo == null}" style="white-space: nowrap;">
+                        <a th:href="@{/friend/request/{id}(id=${users.id})}" class="btn btn-primary">友達申請</a>
                     </td>
                   </tr>
                 </tbody>
