@@ -82,9 +82,27 @@ src
 
 <img src="docs/screenshot/login/index_003.jpg" width="75%">
 
-- ユーザーが存在しない場合は、サーバサイドでバリデーションを行います。
+- ユーザーが存在しない場合は、サーバサイドでバリデーションを行いエラーとします。
 
+### アカウント作成ページ
 
+アカウント作成機能を実装しました。
 
+<img src="docs/screenshot/account/index_001.jpg" width="75%">
+
+- 「お名前」「メールアドレス」「ログインID」「パスワード」を入力し、アカウント作成します。
+- 「お名前」「メールアドレス」「ログインID」「パスワード」は必須入力です。
+
+<img src="docs/screenshot/account/index_002.jpg" width="75%">
+
+- 「お名前」「メールアドレス」「ログインID」「パスワード」を入力しなかった場合、jsでバリデーションを行いエラーとします。
+
+<img src="docs/screenshot/account/index_003.jpg" width="75%">
+
+- すでに登録済みのアカウントを登録すると、サーバサイドでバリデーションを行いエラーとします。
+
+<img src="docs/screenshot/account/complete_001.jpg" width="75%">
+
+- アカウントの登録が完了すると、アカウント作成完了ページへ遷移します。
 
 
