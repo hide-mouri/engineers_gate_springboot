@@ -37,16 +37,16 @@
               <!-- Card with an image on top -->
               <div class="card" th:each="posts:${postsList}">
                 <div class="card-header">
-                  <h5 class="card-title2">
+                  <h5 th:id="${posts.id}" class="card-title2">
                     <img th:src="(*{posts.users.iconUri} ? ${@storageService.getDataUri(posts.users.iconUri)} : '/assets/img/profile-dummy.png')" src="/assets/profileimg/profile-img.jpg" alt="Profile" class="rounded-circle" style="height: 40px;">
-                    <a th:href="@{/profile/{id}(id=${posts.users.id})}" th:text="${posts.users.name}">山田</a>&nbsp;<span th:text="|${@dateUtil.format(posts.created)}（${@dateUtil.prettyTimeFormat(posts.created)}）|">Today</span>
+                    <a th:href="|/profile/${posts.users.id}#${posts.id}|" th:text="${posts.users.name}">山田</a>&nbsp;<span th:text="|${@dateUtil.format(posts.created)}（${@dateUtil.prettyTimeFormat(posts.created)}）|">Today</span>
                   </h5>
                 </div>
                 <div th:each="postImages:${posts.postImagesList}">
                   <img th:src="${@storageService.getDataUri(postImages.imageUri)}" src="/assets/img/card.jpg" class="card-img-top" alt="..." />
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title" th:text="${posts.title}">リラックスしてカフェタイムを楽しむ！テラスでのカフェ体験</h5>
+                  <h5 th:id="|comment_${posts.id}|" class="card-title" th:text="${posts.title}">リラックスしてカフェタイムを楽しむ！テラスでのカフェ体験</h5>
                   <p class="card-text" th:utext="${@stringUtil.nl2br(posts.body)}">こんにちは、皆さん！今日は素晴らしいテラスでのカフェ体験についてお話ししたいと思います。最近、私は忙しい日常生活から離れるために、テラスでカフェを楽しむことを好んでいます。そこで、今回は私のおすすめのテラスカフェを紹介しつつ、リラックスしてカフェタイムを過ごす方法をご紹介します。
                     <br>
                     <br>
@@ -144,7 +144,7 @@
                 <div class="post-item clearfix" th:each="news:${newsList}">
                   <img th:if="${not #lists.isEmpty(news.postImagesList)}" th:src="${@storageService.getDataUri(news.postImagesList.get(0).imageUri)}"  src="/assets/img/news-1.jpg" alt="">
                   <h4>
-                    <a th:href="@{/profile/{id}(id=${news.users.id})}" th:text="${news.title}">今週ランチです。</a> | <span class="badge border-secondary border-1 text-secondary"><a th:href="@{/profile/{id}(id=${news.users.id})}" th:text="|${news.users.name}（${@dateUtil.prettyTimeFormat(news.created)}）|">山田</a></span>
+                    <a th:href="|/profile/${news.users.id}#${news.id}|" th:text="${news.title}">今週ランチです。</a> | <span class="badge border-secondary border-1 text-secondary"><a th:href="@{/profile/{id}(id=${news.users.id})}" th:text="|${news.users.name}（${@dateUtil.prettyTimeFormat(news.created)}）|">山田</a></span>
                   </h4>
                   <p th:utext="${@stringUtil.nl2br(news.body, 150)}">ハヤシライス、ピリ辛味噌バターコーンのスープパスタを食べてきました。...</p>
                 </div>

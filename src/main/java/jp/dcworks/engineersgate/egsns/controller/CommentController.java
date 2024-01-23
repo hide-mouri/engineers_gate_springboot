@@ -63,7 +63,7 @@ public class CommentController extends AppController {
 			redirectAttributes.addFlashAttribute("requestComment", requestComment);
 
 			// 入力画面へリダイレクト。
-			return "redirect:" + new URI(referer).getPath();
+			return "redirect:" + new URI(referer).getPath() + "#comment_" + postsId;
 		}
 
 		// TODO バリデーション（投稿ID）
@@ -75,6 +75,6 @@ public class CommentController extends AppController {
 		// コメント登録処理。
 		postCommentsService.save(requestComment, lPostsId, usersId);
 
-		return "redirect:" + new URI(referer).getPath();
+		return "redirect:" + new URI(referer).getPath() + "#comment_" + postsId;
 	}
 }

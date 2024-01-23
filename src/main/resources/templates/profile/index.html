@@ -37,7 +37,7 @@
               <!-- Card with an image on top -->
               <div class="card" th:each="posts:${postsList}">
                 <div class="card-header">
-                  <h5 class="card-title2">
+                  <h5 th:id="${posts.id}" class="card-title2">
                     <img th:src="(*{posts.users.iconUri} ? ${@storageService.getDataUri(posts.users.iconUri)} : '/assets/img/profile-dummy.png')" src="/assets/profileimg/profile-img.jpg" alt="Profile" class="rounded-circle" style="height: 40px;">
                     <a th:text="${posts.users.name}">山田</a>&nbsp;<span th:text="|${@dateUtil.format(posts.created)}（${@dateUtil.prettyTimeFormat(posts.created)}）|">Today</span>
                   </h5>
@@ -46,7 +46,7 @@
                   <img th:src="${@storageService.getDataUri(postImages.imageUri)}" src="/assets/img/card.jpg" class="card-img-top" alt="..." />
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title" th:text="${posts.title}">リラックスしてカフェタイムを楽しむ！テラスでのカフェ体験</h5>
+                  <h5 th:id="|comment_${posts.id}|" class="card-title" th:text="${posts.title}">リラックスしてカフェタイムを楽しむ！テラスでのカフェ体験</h5>
                   <p class="card-text" th:utext="${@stringUtil.nl2br(posts.body)}">こんにちは、皆さん！今日は素晴らしいテラスでのカフェ体験についてお話ししたいと思います。最近、私は忙しい日常生活から離れるために、テラスでカフェを楽しむことを好んでいます。そこで、今回は私のおすすめのテラスカフェを紹介しつつ、リラックスしてカフェタイムを過ごす方法をご紹介します。
                     <br>
                     <br>
