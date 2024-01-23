@@ -121,6 +121,7 @@ src
 <img src="docs/screenshot/home/index_002.jpg" width="65%">
 
 - ブログが投稿されている時の表示になります。
+- SNSを利用しているユーザーの投稿が閲覧できます。
 
 <img src="docs/screenshot/home/index_003.jpg" width="65%">
 
@@ -142,6 +143,20 @@ src
 <img src="docs/screenshot/profile/index_001.jpg" width="65%">
 
 - データ0件の表示になります。
+
+<img src="docs/screenshot/profile/index_002_1.jpg" width="40%">　<img src="docs/screenshot/profile/index_002_2.jpg" width="40%">
+
+- ブログが投稿されている時の表示になります。
+- 個別のユーザーの投稿が閲覧できます。
+
+<img src="docs/screenshot/profile/index_003_1.jpg" width="40%">　<img src="docs/screenshot/profile/index_003_2.jpg" width="40%">
+
+- 自身のプロフィールを編集できます。
+    - 「名前」「メールアドレス」は必須入力です。
+    - 未入力の場合、サーバサイドでバリデーションを行いエラーとします。
+- 自身のパスワードを編集できます。
+    - 「パスワード」は必須入力です。
+    - 未入力の場合、サーバサイドでバリデーションを行いエラーとします。
 
 
 ------------------------
