@@ -169,7 +169,10 @@ src
 
 - データ0件の表示になります。
 
+<img src="docs/screenshot/friend/index_002.jpg" width="65%">
 
+- フレンドが投稿されている時の表示になります。
+- フレンド申請、解除が出来ます。
 
 
 
