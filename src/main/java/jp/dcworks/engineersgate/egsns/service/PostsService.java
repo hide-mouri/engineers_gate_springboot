@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import jp.dcworks.engineersgate.egsns.dto.RequestShare;
 import jp.dcworks.engineersgate.egsns.entity.PostImages;
 import jp.dcworks.engineersgate.egsns.entity.Posts;
+import jp.dcworks.engineersgate.egsns.mybatis.PostsMapper;
+import jp.dcworks.engineersgate.egsns.mybatis.entity.PostsMappingEntity;
 import jp.dcworks.engineersgate.egsns.repository.PostImagesRepository;
 import jp.dcworks.engineersgate.egsns.repository.PostsRepository;
 import lombok.extern.log4j.Log4j2;
@@ -18,6 +20,10 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @Service
 public class PostsService {
+
+	/** Mapperインターフェース。 */
+	@Autowired
+	private PostsMapper postsMapper;
 
 	/** リポジトリインターフェース。 */
 	@Autowired
@@ -74,4 +80,15 @@ public class PostsService {
 	public List<Posts> findByUsersId(Long usersId) {
 		return (List<Posts>) repository.findByUsersIdOrderByIdDesc(usersId);
 	}
+
+	/**
+	 * 投稿テーブルより除外ユーザーID以外の投稿最新情報を取得する。
+	 * 
+	 * @param excludedUsersId 除外ユーザーID
+	 * @return
+	 */
+	public List<PostsMappingEntity> getNewPosts(Long excludedUsersId) {
+		return postsMapper.getNewPosts(excludedUsersId);
+	}
+
 }

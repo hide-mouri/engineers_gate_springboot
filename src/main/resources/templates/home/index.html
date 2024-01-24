@@ -142,9 +142,9 @@
 
               <div class="news">
                 <div class="post-item clearfix" th:each="news:${newsList}">
-                  <img th:if="${not #lists.isEmpty(news.postImagesList)}" th:src="${@storageService.getDataUri(news.postImagesList.get(0).imageUri)}"  src="/assets/img/news-1.jpg" alt="">
+                  <img th:src="(*{news.imageUri} ? ${@storageService.getDataUri(news.imageUri)} : '/assets/img/noimage.jpg')"  src="/assets/img/news-1.jpg" alt="">
                   <h4>
-                    <a th:href="|/profile/${news.users.id}#${news.id}|" th:text="${news.title}">今週ランチです。</a> | <span class="badge border-secondary border-1 text-secondary"><a th:href="@{/profile/{id}(id=${news.users.id})}" th:text="|${news.users.name}（${@dateUtil.prettyTimeFormat(news.created)}）|">山田</a></span>
+                    <a th:href="|/profile/${news.usersId}#${news.id}|" th:text="${news.title}">今週ランチです。</a> | <span class="badge border-secondary border-1 text-secondary"><a th:href="@{/profile/{id}(id=${news.usersId})}" th:text="|${news.name}（${@dateUtil.prettyTimeFormat(news.created)}）|">山田</a></span>
                   </h4>
                   <p th:utext="${@stringUtil.nl2br(news.body, 150)}">ハヤシライス、ピリ辛味噌バターコーンのスープパスタを食べてきました。...</p>
                 </div>

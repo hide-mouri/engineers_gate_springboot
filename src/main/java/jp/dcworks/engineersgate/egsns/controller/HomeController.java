@@ -19,6 +19,7 @@ import jp.dcworks.engineersgate.egsns.core.annotation.LoginCheck;
 import jp.dcworks.engineersgate.egsns.dto.RequestComment;
 import jp.dcworks.engineersgate.egsns.dto.RequestShare;
 import jp.dcworks.engineersgate.egsns.entity.Posts;
+import jp.dcworks.engineersgate.egsns.mybatis.entity.PostsMappingEntity;
 import jp.dcworks.engineersgate.egsns.service.PostsService;
 import jp.dcworks.engineersgate.egsns.service.StorageService;
 import jp.dcworks.engineersgate.egsns.util.StringUtil;
@@ -57,12 +58,16 @@ public class HomeController extends AppController {
 			model.addAttribute("requestComment", new RequestComment());
 		}
 
+		// ログインユーザー情報取得。
+		Long usersId = getUsersId();
+
 		// 投稿一覧取得。
 		List<Posts> postsList = postsService.findAllPosts();
 		model.addAttribute("postsList", postsList);
 
-		// TODO とりあえず表示するためだけの暫定実装。同じ人の投稿だけにならないようにユーザー毎の最新を取得するようにする。
-		model.addAttribute("newsList", postsList);
+		// ニュース一覧取得。
+		List<PostsMappingEntity> newsList = postsService.getNewPosts(usersId);
+		model.addAttribute("newsList", newsList);
 
 		return "home/index";
 	}

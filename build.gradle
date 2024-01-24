@@ -30,6 +30,9 @@ dependencies {
 	// mysql関連
 	runtimeOnly 'com.mysql:mysql-connector-j'
 
+	// mybatis（ORM）
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.2'
+
 	// log4j設定
 	implementation "org.springframework.boot:spring-boot-starter-log4j2"
 	modules {
